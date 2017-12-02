@@ -18,9 +18,9 @@ import klasyPodstawowe.Przedmiot;
  */
 public class ZarzadzanieDanymi {
 	
-	ArrayList <Nauczyciel> arrayNauczyciel;
-	ArrayList <Klasa> arrayKlasa;
-	ArrayList <Przedmiot> arrayPrzedmiot;
+	ArrayList <Nauczyciel> arrayNauczyciel = new ArrayList <Nauczyciel>();
+	ArrayList <Klasa> arrayKlasa = new ArrayList <Klasa>();
+	ArrayList <Przedmiot> arrayPrzedmiot = new ArrayList <Przedmiot>();
 	Integer salaAmount;
 	String filePath;
 //	ArrayList <Sala> arraySala;
@@ -116,13 +116,16 @@ public class ZarzadzanieDanymi {
 						processNauczyciel(scanner);
 						break;
 					case "#Klasa":
-						processKlasa();
+						processKlasa(scanner);
 						break;
 					case "#Przedmiot": 
-						processPrzedmiot();
+						processPrzedmiot(scanner);
 						break;
 					case "#Zajecia":
 						processZajecia();
+						break;
+					case "#Sala" :
+						processSala(scanner);
 						break;
 					}
 					
@@ -138,18 +141,20 @@ public class ZarzadzanieDanymi {
 			
 			
 	}
+
+
 /**
  * @param scanner scanner which is used by the function
  * 
  */
-	void processNauczyciel(Scanner scanner)
+	private void processNauczyciel(Scanner scanner)
 	{
 		Nauczyciel nauczyciel = null;
 		String pomS = new String();
 		String imie = new String();
 		String nazwisko = new String();
 		Integer id;
-		while((pomS=scanner.next())!="#end")
+		while((pomS=scanner.next()).equals("#end"))
 			{
 				id = Integer.parseInt(pomS);
 				imie = scanner.next();
@@ -161,18 +166,45 @@ public class ZarzadzanieDanymi {
 		
 	}
 	
-	void processKlasa()
+	private void processKlasa(Scanner scanner)
+	{
+		Klasa klasa= null;
+		String pomS = new String();
+		String nazwa = new String();
+		Integer id;
+		while((pomS=scanner.next()).equals("#end"))
+			{
+				id = Integer.parseInt(pomS);
+				nazwa = scanner.next();
+				
+				klasa = new Klasa(id, nazwa);
+				arrayKlasa.add(klasa);
+			};
+	}
+	
+	private void processPrzedmiot(Scanner scanner)
+	{
+		Przedmiot przedmiot= null;
+		String pomS = new String();
+		String nazwa = new String();
+		Integer id;
+		while((pomS=scanner.next()).equals("#end"))
+			{
+				id = Integer.parseInt(pomS);
+				nazwa = scanner.next();
+				
+				przedmiot = new Przedmiot(id, nazwa);
+				arrayPrzedmiot.add(przedmiot);
+			};
+	}
+	
+	private void processZajecia()
 	{
 		
 	}
 	
-	void processPrzedmiot()
-	{
-		
-	}
-	
-	void processZajecia()
-	{
+	private void processSala(Scanner scanner) {
+		// TODO Auto-generated method stub
 		
 	}
 }
