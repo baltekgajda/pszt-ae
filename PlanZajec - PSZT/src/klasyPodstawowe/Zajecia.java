@@ -13,6 +13,7 @@ public class Zajecia {
 	Klasa klasa;
 	Nauczyciel nauczyciel;
 	Sala sala;
+	Integer godzina;
 	
 	
 	public Zajecia(Integer id, Przedmiot przedmiot, Klasa klasa, Nauczyciel nauczyciel, Sala sala) {
@@ -24,6 +25,10 @@ public class Zajecia {
 		this.sala = sala;
 	}
 	
+	public Zajecia() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -55,5 +60,17 @@ public class Zajecia {
 		this.sala = sala;
 	}
 	
-	
+	public Integer getGodzina() {
+		return godzina;
+	}
+
+	public void setGodzina(Integer godzina) {
+		this.godzina = godzina;
+	}
+
+	public String toString()
+	{
+		return getId().toString() + " " + getKlasa().toString() + " " + getNauczyciel().toString() /*+ getSala().toString() + getGodzina().toString()*/ ;
+		
+	}
 }

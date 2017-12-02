@@ -41,7 +41,7 @@ public class Nauczyciel {
 	
 	public String toString()
 	{
-		return id + imie + nazwisko;
+		return id + " " + imie + " " + nazwisko;
 		
 	}
 }

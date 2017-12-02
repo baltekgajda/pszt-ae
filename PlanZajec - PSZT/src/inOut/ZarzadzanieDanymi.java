@@ -8,9 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exceptions.ExceptionBadDataStructure;
 import klasyPodstawowe.Klasa;
 import klasyPodstawowe.Nauczyciel;
 import klasyPodstawowe.Przedmiot;
+import klasyPodstawowe.Sala;
+import klasyPodstawowe.Zajecia;
 
 /**
  * @author Maciek
@@ -21,6 +24,8 @@ public class ZarzadzanieDanymi {
 	ArrayList <Nauczyciel> arrayNauczyciel = new ArrayList <Nauczyciel>();
 	ArrayList <Klasa> arrayKlasa = new ArrayList <Klasa>();
 	ArrayList <Przedmiot> arrayPrzedmiot = new ArrayList <Przedmiot>();
+	ArrayList <Sala> arraySala= new ArrayList <Sala>();
+	ArrayList <Zajecia> arrayZajecia = new ArrayList <Zajecia>();
 	Integer salaAmount;
 	String filePath;
 //	ArrayList <Sala> arraySala;
@@ -95,6 +100,23 @@ public class ZarzadzanieDanymi {
 		this.filePath = filePath;
 	}
 
+
+	public ArrayList<Sala> getArraySala() {
+		return arraySala;
+	}
+
+	public void setArraySala(ArrayList<Sala> arraySala) {
+		this.arraySala = arraySala;
+	}
+
+	public ArrayList<Zajecia> getArrayZajecia() {
+		return arrayZajecia;
+	}
+	
+	public void setArrayZajecia(ArrayList<Zajecia> arrayZajecia) {
+		this.arrayZajecia = arrayZajecia;
+	}
+
 	public ZarzadzanieDanymi() {
 		// TODO Auto-generated constructor stub
 	}
@@ -122,7 +144,7 @@ public class ZarzadzanieDanymi {
 						processPrzedmiot(scanner);
 						break;
 					case "#Zajecia":
-						processZajecia();
+						processZajecia(scanner);
 						break;
 					case "#Sala" :
 						processSala(scanner);
@@ -137,11 +159,7 @@ public class ZarzadzanieDanymi {
 			}
 			
 			scanner.close();
-			
-			
-			
 	}
-
 
 /**
  * @param scanner scanner which is used by the function
@@ -154,13 +172,13 @@ public class ZarzadzanieDanymi {
 		String imie = new String();
 		String nazwisko = new String();
 		Integer id;
-		while((pomS=scanner.next()).equals("#end"))
+		while(!(pomS=scanner.next()).equals("#end"))
 			{
 				id = Integer.parseInt(pomS);
 				imie = scanner.next();
 				nazwisko = scanner.next();
 				nauczyciel = new Nauczyciel(id, imie, nazwisko);
-				arrayNauczyciel.add(nauczyciel);
+				arrayNauczyciel.add(id, nauczyciel);
 			};
 			
 		
@@ -172,13 +190,13 @@ public class ZarzadzanieDanymi {
 		String pomS = new String();
 		String nazwa = new String();
 		Integer id;
-		while((pomS=scanner.next()).equals("#end"))
+		while(!(pomS=scanner.next()).equals("#end"))
 			{
 				id = Integer.parseInt(pomS);
 				nazwa = scanner.next();
 				
 				klasa = new Klasa(id, nazwa);
-				arrayKlasa.add(klasa);
+				arrayKlasa.add(id, klasa);
 			};
 	}
 	
@@ -188,23 +206,57 @@ public class ZarzadzanieDanymi {
 		String pomS = new String();
 		String nazwa = new String();
 		Integer id;
-		while((pomS=scanner.next()).equals("#end"))
+		while(!(pomS=scanner.next()).equals("#end"))
 			{
 				id = Integer.parseInt(pomS);
 				nazwa = scanner.next();
 				
 				przedmiot = new Przedmiot(id, nazwa);
-				arrayPrzedmiot.add(przedmiot);
+				arrayPrzedmiot.add(id, przedmiot);
 			};
 	}
 	
-	private void processZajecia()
+	private void processZajecia(Scanner scanner) throws ExceptionBadDataStructure
 	{
 		
+		String pomS = new String();
+		String nazwa = new String();
+		Integer id;
+		int i = 0;
+		while(!(pomS=scanner.next()).equals("#end"))
+			{
+				Zajecia zajecia = new Zajecia();
+				zajecia.setId(i);
+			
+				if (!pomS.equals("Nauczyciel")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator Nauczyciel");
+				if (!scanner.next().equals("=")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator =");
+				zajecia.setNauczyciel(arrayNauczyciel.get(scanner.nextInt()));
+				
+				if (!scanner.next().equals("Klasa")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator Klasa");
+				if (!scanner.next().equals("=")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator =");
+				zajecia.setKlasa(arrayKlasa.get(scanner.nextInt()));
+				
+				if (!scanner.next().equals("Przedmiot")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator Przedmiot");
+				if (!scanner.next().equals("=")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator =");
+				zajecia.setPrzedmiot(arrayPrzedmiot.get(scanner.nextInt()));
+				
+//				if (!scanner.next().equals("Sala")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator Sala");
+//				if (!scanner.next().equals("=")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator =");
+//				zajecia.setSala(arraySala.get(scanner.nextInt()));
+//				nazwa = scanner.next();
+				
+				arrayZajecia.add(zajecia);
+				i++;
+			};
 	}
 	
 	private void processSala(Scanner scanner) {
-		// TODO Auto-generated method stub
+		setSalaAmount(scanner.nextInt());
+		for (Integer i = new Integer (0); i<salaAmount; i++)
+		{
+			arraySala.add(new Sala (i));
+		}
+		
 		
 	}
 }

@@ -28,4 +28,10 @@ public class Klasa {
 	public void setNazwa(String nazwa) {
 		this.nazwa = nazwa;
 	}
+	
+	public String toString()
+	{
+		return getId().toString() + " " + getNazwa().toString() + " ";
+		
+	}
 }

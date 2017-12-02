@@ -18,9 +18,10 @@ public class Main {
 	 */
 	public static void main(String[] args) throws IOException {
 		ZarzadzanieDanymi zarzadzanieDanymi = new ZarzadzanieDanymi();
-		zarzadzanieDanymi.setFilePath("C:/Users/Nexon/Desktop/dane.txt");
+	//	URL url = getClass().getResource("dane.txt");
+		zarzadzanieDanymi.setFilePath("src/plikiUzytkowe/dane.txt");
 		zarzadzanieDanymi.loadData();
-		zarzadzanieDanymi.getArrayNauczyciel().toString();
+		System.out.println(zarzadzanieDanymi.getArrayZajecia().toString());		
 	}
 
 }

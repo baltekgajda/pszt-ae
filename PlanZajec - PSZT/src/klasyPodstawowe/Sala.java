@@ -9,6 +9,11 @@ package klasyPodstawowe;
  */
 public class Sala {
 	Integer id;
+	
+	public Sala(Integer id) {
+		super();
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;
