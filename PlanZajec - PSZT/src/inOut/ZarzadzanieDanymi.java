@@ -214,7 +214,7 @@ public class ZarzadzanieDanymi {
 				przedmiot = new Przedmiot(id, nazwa);
 				arrayPrzedmiot.add(id, przedmiot);
 			};
-	}
+	} 
 	 
 	private void processZajecia(Scanner scanner) throws ExceptionBadDataStructure
 	{
