@@ -138,7 +138,10 @@ public class ZarzadzanieDanymi {
 			
 			
 	}
-	
+/**
+ * @param scanner scanner which is used by the function
+ * 
+ */
 	void processNauczyciel(Scanner scanner)
 	{
 		Nauczyciel nauczyciel = null;
