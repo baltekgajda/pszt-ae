@@ -148,7 +148,7 @@ public class ZarzadzanieDanymi {
 						break;
 					case "#Sala" :
 						processSala(scanner);
-						break;
+						break; 
 					}
 					
 				}

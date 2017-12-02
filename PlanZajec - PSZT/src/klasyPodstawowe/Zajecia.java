@@ -52,7 +52,7 @@ public class Zajecia {
 	}
 	public void setNauczyciel(Nauczyciel nauczyciel) {
 		this.nauczyciel = nauczyciel;
-	}
+	} 
 	public Sala getSala() {
 		return sala;
 	}
