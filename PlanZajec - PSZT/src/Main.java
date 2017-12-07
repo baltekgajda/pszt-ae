@@ -1,6 +1,7 @@
 import java.io.IOException;
 
 import inOut.ZarzadzanieDanymi;
+import klasyPodstawowe.Plan;
 
 /**
  * 
@@ -21,6 +22,7 @@ public class Main {
 	//	URL url = getClass().getResource("dane.txt");
 		zarzadzanieDanymi.setFilePath("src/plikiUzytkowe/dane.txt");
 		zarzadzanieDanymi.loadData();
+		Plan.setAvailableClassrooms(zarzadzanieDanymi.getSalaAmount());
 		System.out.println(zarzadzanieDanymi.getArrayZajecia().toString());		
 	}
 
