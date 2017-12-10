@@ -12,11 +12,12 @@ public class Plan {
 	static int availableClassroms; //do ustawienia przy wczytywaniu danych z pliku
 	
 	private HashMap<Integer, Slot> timetable;
+	private HashMap<Integer, Slot> illegal;
 	
 	public Plan()
 	{
-		timetable = new HashMap <Integer, Slot> (availableDays*availableHours*availableClassroms);
-		genSlots();
+		timetable = new HashMap <Integer, Slot>(); //poprawne sloty (dobry dzien godzina klasa)
+		illegal = new HashMap <Integer, Slot>(); //niepoprawne sloty (dzien, godzina lub klasa poza zakresem)
 	}
 	
 	
@@ -42,7 +43,7 @@ public class Plan {
 		return key;
 	}
 
-	private void  genSlots()
+	private void  genSlots() //niepotrzebne
 	{
 		for (int day=1; day<=availableDays; day++)
 		{
@@ -57,10 +58,41 @@ public class Plan {
 		}
 	}
 	
+	private boolean isValidSlot(int d, int h, int r) //czy poprawne dzien godzina klasa
+	{
+		
+		if (d<1 || d>availableDays) return false;
+		if (h<1 || d>availableHours) return false;
+		if (r<0 || d>availableClassroms) return false;
+		return true;
+	}
+	
 	public void addZajecie(int day, int hour, int room, int zajecie)
 	{
 		int key = genKey(day, hour,room);
-		timetable.get(key).add(zajecie);
+		if (isValidSlot(day,hour,room))
+		{
+			if (timetable.containsKey(key))
+				timetable.get(key).add(zajecie);
+			else 
+			{
+				Slot s = new Slot(day, hour, room);
+				s.add(zajecie);
+				timetable.put(key, s);
+			}
+		}
+		else
+		{
+			
+			if (illegal.containsKey(key))
+				illegal.get(key).add(zajecie);
+			else 
+			{
+				Slot s = new Slot(day, hour, room);
+				s.add(zajecie);
+				illegal.put(key, s);
+			}
+		}	
 	}
 
 	public float getScore()
@@ -70,8 +102,7 @@ public class Plan {
 	}
 	
 	//TODO
-	/* +tworzenie planu na podstawie genotypu
-	 * +ocena planu
+	/* +ocena planu
 	 * 
 	 * 
 	 */
