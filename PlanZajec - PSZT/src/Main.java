@@ -1,5 +1,6 @@
 import java.io.IOException;
 
+import Evolution.Genotyp;
 import inOut.ZarzadzanieDanymi;
 import klasyPodstawowe.Plan;
 
@@ -23,7 +24,13 @@ public class Main {
 		zarzadzanieDanymi.setFilePath("src/plikiUzytkowe/dane.txt");
 		zarzadzanieDanymi.loadData();
 		Plan.setAvailableClassrooms(zarzadzanieDanymi.getSalaAmount());
+		Genotyp.setRoomLength(zarzadzanieDanymi.getSalaAmount());
 		System.out.println(zarzadzanieDanymi.getArrayZajecia().toString());		
+		
+		
+		Genotyp.setRoomLength(7);
+		
+		Genotyp.test("000001010011100101110111000");
 	}
 
 }

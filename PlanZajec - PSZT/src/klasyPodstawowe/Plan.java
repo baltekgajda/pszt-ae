@@ -3,27 +3,24 @@
  */
 package klasyPodstawowe;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 
-/**
- * @author Maciek
- *
- */
 public class Plan {
 	
 	static int availableDays = 5;
 	static int availableHours = 8;
 	static int availableClassroms; //do ustawienia przy wczytywaniu danych z pliku
 	
-	private ArrayList<Slot> timetable;
+	private HashMap<Integer, Slot> timetable;
 	
 	public Plan()
 	{
-		timetable = new ArrayList<Slot>();
+		timetable = new HashMap <Integer, Slot> (availableDays*availableHours*availableClassroms);
 		genSlots();
 	}
 	
 	
+
 	public static void setAvailableDays(int d)
 	{
 		availableDays =d;
@@ -38,6 +35,12 @@ public class Plan {
 	{
 		availableClassroms =d;
 	}
+	
+	private int genKey(int day, int hour, int room)
+	{
+		int key = day*1000+hour*100+room;
+		return key;
+	}
 
 	private void  genSlots()
 	{
@@ -47,10 +50,17 @@ public class Plan {
 			{
 				for (int room=1; room<=availableHours; room++)
 				{
-					timetable.add(new Slot(day, hour, room));
+					int key = day*1000+hour*100+room;
+					timetable.put(genKey(day, hour,room), new Slot(day, hour, room));
 				}
 			}
 		}
+	}
+	
+	public void addZajecie(int day, int hour, int room, int zajecie)
+	{
+		int key = genKey(day, hour,room);
+		timetable.get(key).add(zajecie);
 	}
 
 	public float getScore()
