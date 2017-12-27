@@ -26,8 +26,6 @@ public class Main {
 		Plan.setAvailableClassrooms(zarzadzanieDanymi.getSalaAmount());
 		Genotyp.setRoomLength(zarzadzanieDanymi.getSalaAmount());
 		System.out.println(zarzadzanieDanymi.getArrayZajecia().toString());		
-		System.out.println("hej to ja");
-		//https://github.com/Avinsi/pszt-ae.git
 		Genotyp.setRoomLength(7);
 		
 		Genotyp.test("000001010011100101110111000");
