@@ -27,7 +27,7 @@ public class Main {
 		Genotyp.setRoomLength(zarzadzanieDanymi.getSalaAmount());
 		System.out.println(zarzadzanieDanymi.getArrayZajecia().toString());		
 		Genotyp.setRoomLength(7);
-		
+		//hohoho
 		Genotyp.test("000001010011100101110111000");
 	}
 
