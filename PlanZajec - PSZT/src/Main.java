@@ -26,7 +26,7 @@ public class Main {
 		Plan.setAvailableClassrooms(zarzadzanieDanymi.getSalaAmount());
 		Genotyp.setRoomLength(zarzadzanieDanymi.getSalaAmount());
 		System.out.println(zarzadzanieDanymi.getArrayZajecia().toString());		
-		
+		System.out.println("hej to ja");
 		
 		Genotyp.setRoomLength(7);
 		
