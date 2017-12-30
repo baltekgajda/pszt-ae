@@ -10,7 +10,7 @@ import inOut.ZarzadzanieDanymi;
 
 public class Timetable {
 
-	static int workingDays = 2;
+	static int workingDays = 1;
 	static int workingHours =4;
 	static int availableClassrooms=1;
 	static int availableTimeSlots = 4;
