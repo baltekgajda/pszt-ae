@@ -239,7 +239,11 @@ public class ZarzadzanieDanymi {
 				if (!scanner.next().equals("=")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator =");
 				zajecia.setPrzedmiot(arrayPrzedmiot.get(scanner.nextInt()));
 				
-				arrayZajecia.add(zajecia);
+				if (!scanner.next().equals("Ile")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator Ile");
+				if (!scanner.next().equals("=")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator =");
+				int count = scanner.nextInt();
+				for(int j=0;j<count;j++)
+					arrayZajecia.add(zajecia);
 				i++;
 			};
 	}
