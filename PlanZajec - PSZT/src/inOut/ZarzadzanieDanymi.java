@@ -28,7 +28,6 @@ public class ZarzadzanieDanymi {
 	ArrayList <Zajecia> arrayZajecia = new ArrayList <Zajecia>();
 	Integer salaAmount;
 	String filePath;
-//	ArrayList <Sala> arraySala;
 	
 	/**
 	 * @return the arrayNauczyciel
@@ -134,19 +133,19 @@ public class ZarzadzanieDanymi {
 				{
 					switch (scanner.next())
 					{
-					case "#Nauczyciel":
+					case "#Nauczyciele":
 						processNauczyciel(scanner);
 						break;
-					case "#Klasa":
+					case "#Klasy":
 						processKlasa(scanner);
 						break;
-					case "#Przedmiot": 
+					case "#Przedmioty": 
 						processPrzedmiot(scanner);
 						break;
 					case "#Zajecia":
 						processZajecia(scanner);
 						break;
-					case "#Sala" :
+					case "#Sale" :
 						processSala(scanner);
 						break; 
 					}
@@ -222,7 +221,7 @@ public class ZarzadzanieDanymi {
 		String pomS = new String();
 		String nazwa = new String();
 		Integer id;
-		int i = 0;
+		int i = 1;
 		while(!(pomS=scanner.next()).equals("#end"))
 			{
 				Zajecia zajecia = new Zajecia();
@@ -240,11 +239,6 @@ public class ZarzadzanieDanymi {
 				if (!scanner.next().equals("=")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator =");
 				zajecia.setPrzedmiot(arrayPrzedmiot.get(scanner.nextInt()));
 				
-//				if (!scanner.next().equals("Sala")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator Sala");
-//				if (!scanner.next().equals("=")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator =");
-//				zajecia.setSala(arraySala.get(scanner.nextInt()));
-//				nazwa = scanner.next();
-				
 				arrayZajecia.add(zajecia);
 				i++;
 			};
@@ -253,11 +247,7 @@ public class ZarzadzanieDanymi {
 	private void processSala(Scanner scanner) {
 		setSalaAmount(scanner.nextInt());
 		for (Integer i = new Integer (0); i<salaAmount; i++)
-		{
 			arraySala.add(new Sala (i));
-		}
-		
-		
 	}
 }
 	

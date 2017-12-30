@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Plan {
 	
-	static int availableDays = 5;
+	static int availableDays = 1;
 	static int availableHours = 8;
 	static int availableClassroms; //do ustawienia przy wczytywaniu danych z pliku
 	
@@ -106,7 +106,5 @@ public class Plan {
 	 * 
 	 * 
 	 */
-	
-	
 	
 }

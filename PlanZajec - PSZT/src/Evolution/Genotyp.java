@@ -1,5 +1,4 @@
 package Evolution;
-import java.awt.image.ByteLookupTable;
 
 import klasyPodstawowe.Plan;
 

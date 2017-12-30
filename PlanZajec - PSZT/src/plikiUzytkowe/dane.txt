@@ -1,10 +1,10 @@
-#Nauczyciel
+#Nauczyciele
 0 Stefan Fuksiewicz
 1 Tomasz Malka
 2 Witold Kuran
 #end
 
-#Klasa
+#Klasy
 0 1A
 1 1B
 2 1C
@@ -13,14 +13,14 @@
 5 2C
 #end
 
-#Przedmiot
+#Przedmioty
 0 Biologia
 1 Wos
 2 Fizyka
 #end
 
-#Sala
-40
+#Sale
+2
 #end
 
 #Zajecia

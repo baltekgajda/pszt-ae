@@ -8,13 +8,16 @@ package klasyPodstawowe;
  *
  */
 public class Klasa {
+	
+	Integer id;
+	String nazwa = new String();
+	
 	public Klasa(Integer id, String nazwa) 
 	{
 		setId(id);
 		setNazwa(nazwa);
 	}
-	Integer id;
-	String nazwa = new String();
+
 	
 	public Integer getId() {
 		return id;
