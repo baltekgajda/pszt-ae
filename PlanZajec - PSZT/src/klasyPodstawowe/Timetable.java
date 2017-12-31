@@ -15,7 +15,7 @@ public class Timetable {
 	static int availableClassrooms=1;
 	static int availableTimeSlots = 4;
 	static int genNumber = 1;					//to tez nie wiem czy static 
-	static int populationSize = 6;				//moze nie static? do przemyslenia	na pewno musi byc parzyste
+	static int populationSize = 6;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
 	ArrayList <Genotype> genotypes;
 	ArrayList <Zajecia> classes;			//wszystkie zajecia
 	int teachersCount;
@@ -113,7 +113,7 @@ public class Timetable {
 			System.out.println("Rodzice: "+genotypes.get(a).toString()+"  "+genotypes.get(b).toString());
 			while(genotypes.size()-populationSize==2*i)
 			{
-				Genotype gen = new Genotype(genotypes.get(a),genotypes.get(b));
+				Genotype gen = new Genotype(genotypes.get(a).getChromosome(),genotypes.get(b).getChromosome());
 				if(checkIfValid(gen.getChromosome()))
 					genotypes.add(gen);
 				else
@@ -121,7 +121,7 @@ public class Timetable {
 			}
 			while(genotypes.size()-populationSize==2*i+1)
 			{
-				Genotype gen = new Genotype(genotypes.get(b),genotypes.get(a));
+				Genotype gen = new Genotype(genotypes.get(b).getChromosome(),genotypes.get(a).getChromosome());
 				if(checkIfValid(gen.getChromosome()))
 					genotypes.add(gen);
 				else

@@ -1,8 +1,6 @@
 import java.io.IOException;
 
-import Evolution.Genotyp;
 import inOut.ZarzadzanieDanymi;
-import klasyPodstawowe.Plan;
 import klasyPodstawowe.Timetable;
 
 
@@ -21,8 +19,6 @@ public class Main {
 		Timetable.setAvailableClassrooms(zarzadzanieDanymi.getSalaAmount());
 		Timetable timetable = new Timetable(zarzadzanieDanymi);
 		timetable.geneticAlgorithm();
-		
-
 	}
 
 }

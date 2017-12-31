@@ -1,12 +1,13 @@
 package Evolution;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
 public class Genotype {
 
-	static int timeSlots=60;
+	static int timeSlots=60;		//rozmiar chromosome
 	static int classesNo=0;
 	static double mutationRate=0.0;
 	
@@ -42,9 +43,9 @@ public class Genotype {
 	}
 	
 
-	public Genotype(Genotype parent1, Genotype parent2) 
+	public Genotype(ArrayList<Integer> parent1, ArrayList<Integer> parent2) 
 	{
-		crossoverPMX(parent1, parent2);
+		crossoverOX1(parent1, parent2);
 		mutate();
 		evaluateFitnessVal();
 		System.out.println("DZIECI:  "+toString());
@@ -76,15 +77,46 @@ public class Genotype {
 	}
 
 
-	private void crossoverPMX(Genotype parent1, Genotype parent2) 			//czy moze crossover powinien byc w timetable???
+	private void crossoverOX1(ArrayList<Integer> parent1, ArrayList<Integer> parent2) 	//czy moze crossover powinien byc w timetable???
 	{
-		//TO DO
-		chromosome=parent1.chromosome;
+		Random generator = new Random();
+		int beg = generator.nextInt(timeSlots);
+		int end = generator.nextInt(timeSlots);
+		ArrayList<Integer> child = new ArrayList<Integer>(timeSlots);
+		
+		if(beg>end)
+		{
+			int temp = beg;
+			beg=end;
+			end=temp;
+		}
+		
+		System.out.println("Poczatek: "+beg+" Koniec: "+end);
+		for(int i=beg;i<=end;i++)
+			child.add(parent1.get(i));
+		
+		ArrayList<Integer> array = new ArrayList<Integer>(timeSlots-(end-beg)-1);	//array trzymajacy elementy parent1 ktore jeszcze nie sa w dziecku
+		for(int i=end+1;i<timeSlots;i++)
+			if(!child.contains(parent2.get(i)))
+				array.add(parent2.get(i));
+		
+		for(int i=0;i<=end;i++)
+			if(!child.contains(parent2.get(i)))
+				array.add(parent2.get(i));
+
+		child.addAll(array);
+		
+		while(child.size()<timeSlots)		//bo zero jest wiele razy i sie nigdy nie doda
+			child.add(0);
+		Collections.rotate(child, beg);
+		chromosome= child;
 	}
+	
+
 
 	private void createRandomChromosome()
 	{
-		chromosome = new ArrayList<Integer>();
+		chromosome = new ArrayList<Integer>(timeSlots);
 		for(int i=1;i<=classesNo;i++)
 			chromosome.add(i);
 		for(int i=classesNo+1;i<=timeSlots;i++)
