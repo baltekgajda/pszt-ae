@@ -8,7 +8,7 @@ public class Genotype {
 
 	static int timeSlots=60;		//rozmiar chromosome
 	static int classesNo=0;
-	static double mutationRate=0.0;
+	static double mutationRate=0.2;
 	
 	ArrayList<Integer> chromosome;		//czy zamienic na zwykla []?
 	double fitnessVal=0;					//czy zamienic na inna niz int
@@ -41,7 +41,7 @@ public class Genotype {
 		}
 		
 		createRandomChromosome();
-		System.out.println(this.toString());	
+		//System.out.println(this.toString());	
 	}
 	
 
@@ -91,7 +91,7 @@ public class Genotype {
 			end=temp;
 		}
 		
-		System.out.println("Poczatek: "+beg+" Koniec: "+end);
+		//System.out.println("Poczatek: "+beg+" Koniec: "+end);
 		for(int i=beg;i<=end;i++)
 			child.add(parent1.get(i));
 		

@@ -27,20 +27,20 @@
 Nauczyciel = 0
 Klasa = 1
 Przedmiot = 0
-Ile = 1
+Ile = 4
 
 Nauczyciel = 1
 Klasa = 1
 Przedmiot = 1
-Ile = 1
+Ile = 4
 
 Nauczyciel = 2
 Klasa = 2
 Przedmiot = 2
-Ile = 1
+Ile = 4
 
 Nauczyciel = 0
 Klasa = 2
 Przedmiot = 0
-Ile = 1
+Ile = 4
 #end

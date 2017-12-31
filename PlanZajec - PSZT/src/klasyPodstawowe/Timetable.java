@@ -10,11 +10,11 @@ import inOut.ZarzadzanieDanymi;
 
 public class Timetable {
 
-	static int workingDays = 1;
+	static int workingDays = 5;
 	static int workingHours =8;
 	static int availableClassrooms=1;
 	static int availableTimeSlots = 4;
-	static int genNumber = 1000;					//to tez nie wiem czy static 
+	static int genNumber = 100;					//to tez nie wiem czy static 
 	static int populationSize = 100;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
 	static double fitnessRate = 0.5;
 	ArrayList <Genotype> genotypes;
@@ -32,7 +32,7 @@ public class Timetable {
 		studentGroupsCount=data.getArrayKlasa().size();
 		Genotype.setClassesNo(classes.size());
 		Genotype.setTimeSlots(availableTimeSlots);
-		System.out.println(teachersCount+" "+classesCount+"Ilosc slotow: "+availableTimeSlots);
+		//System.out.println(teachersCount+" "+classesCount+"Ilosc slotow: "+availableTimeSlots);
 	}
 	
 	public static void setFitnessRate(double rate)
@@ -57,7 +57,7 @@ public class Timetable {
 		Timetable.availableClassrooms=classrooms;
 		Timetable.availableTimeSlots=workingDays*workingHours*classrooms;
 		Genotype.setTimeSlots(availableTimeSlots);
-		System.out.println("Ilosc slotow po zmianie: " + availableTimeSlots);
+		//System.out.println("Ilosc slotow po zmianie: " + availableTimeSlots);
 	}
 	
 	public static void setPopulationSize(int size)
@@ -98,6 +98,8 @@ public class Timetable {
 			breedPopulation();
 			selectNextGeneration();
 		}
+		for(int i=0;i<genotypes.size();i++)
+			System.out.println(genotypes.get(i).toString());
 	}
 
 	private void selectNextGeneration() {
@@ -123,7 +125,7 @@ public class Timetable {
 				earlyFitness=(Math.pow(2, workingHours)-1)*workingDays*availableClassrooms;
 		double maxSlot=slotFitness, maxEarly=earlyFitness;
 		ArrayList <Integer> chromosome = gen.getChromosome();
-		System.out.println("Rozmiar chromosomu: "+gen.toString());
+		//System.out.println("Rozmiar chromosomu: "+gen.toString());
 
 		
 		int i=0,j=0,k=0;			//j okresla ktora godzina danego dnia od 0 do (workingHours-1), k to dzien tygodnia
@@ -147,7 +149,6 @@ public class Timetable {
 				else
 				{
 					slotFitness-=(j-classArray[k][groupId]);
-					System.out.println("LOL"+(j-classArray[k][groupId]));
 					classArray[k][groupId]=j+1;
 				}
 				
@@ -189,14 +190,14 @@ public class Timetable {
 		{
 			a=rouletteSelect();
 			b=rouletteSelect();
-			System.out.println("Rodzice: "+genotypes.get(a).toString()+"  "+genotypes.get(b).toString());
+			//System.out.println("Rodzice: "+genotypes.get(a).toString()+"  "+genotypes.get(b).toString());
 			while(genotypes.size()-populationSize==2*i)
 			{
 				Genotype gen = new Genotype(genotypes.get(a).getChromosome(),genotypes.get(b).getChromosome());
 				if(checkIfValid(gen.getChromosome()))
 				{
 					evaluateFitnessVal(gen);
-					System.out.println("DZIECI:  "+gen.toString());
+					//System.out.println("DZIECI:  "+gen.toString());
 					genotypes.add(gen);
 				}
 				else
@@ -234,7 +235,7 @@ public class Timetable {
 			if(value<0)
 				return i;
 		}
-		System.out.println("Cos nie tak z ruletka");
+		//System.out.println("Cos nie tak z ruletka");
 		return populationSize-1;			//kiedy cos pójdzie nie tak ale nie powinno nigdy 
 	}
 	
@@ -258,7 +259,7 @@ public class Timetable {
 			
 			if(teacherArray[j][teacherId]==true || classesArray[j][classId]==true)
 			{
-				System.out.println("!!!");
+				//System.out.println("!!!");
 				return false;
 			}
 
@@ -273,5 +274,4 @@ public class Timetable {
 		}
 		return true;
 	}
-	
 }
