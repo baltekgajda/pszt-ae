@@ -1,7 +1,6 @@
 package Evolution;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
@@ -12,9 +11,13 @@ public class Genotype {
 	static double mutationRate=0.0;
 	
 	ArrayList<Integer> chromosome;		//czy zamienic na zwykla []?
-	int fitnessVal;					//czy zamienic na inna niz int
+	double fitnessVal=0;					//czy zamienic na inna niz int
 	
 	
+	public void setFitnessVal(double val)
+	{
+		fitnessVal=val;
+	}
 	
 	public ArrayList<Integer> getChromosome() {
 		return chromosome;
@@ -38,7 +41,6 @@ public class Genotype {
 		}
 		
 		createRandomChromosome();
-		evaluateFitnessVal();
 		System.out.println(this.toString());	
 	}
 	
@@ -47,8 +49,6 @@ public class Genotype {
 	{
 		crossoverOX1(parent1, parent2);
 		mutate();
-		evaluateFitnessVal();
-		System.out.println("DZIECI:  "+toString());
 	}
 
 
@@ -126,12 +126,6 @@ public class Genotype {
 		for(int i=timeSlots-1;i>=1;i--)
 			Collections.swap(chromosome, generator.nextInt(i+1), i);
 	}
-	
-	public void evaluateFitnessVal() 
-	{
-		// TODO Auto-generated method stub		//DO ZROBIENIA 
-		this.fitnessVal=1;
-	}
 
 	public static void setTimeSlots(int timeSlots)
 	{
@@ -156,7 +150,7 @@ public class Genotype {
 		return string;
 	}
 	
-	public int getFitnessVal()
+	public double getFitnessVal()
 	{
 		return fitnessVal;
 	}

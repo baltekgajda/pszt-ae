@@ -20,7 +20,7 @@
 #end
 
 #Sale
-2
+1
 #end
 
 #Zajecia
@@ -40,7 +40,7 @@ Przedmiot = 2
 Ile = 1
 
 Nauczyciel = 0
-Klasa = 0
+Klasa = 2
 Przedmiot = 0
 Ile = 1
 #end

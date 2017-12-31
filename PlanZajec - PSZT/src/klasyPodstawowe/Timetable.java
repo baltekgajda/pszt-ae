@@ -11,15 +11,17 @@ import inOut.ZarzadzanieDanymi;
 public class Timetable {
 
 	static int workingDays = 1;
-	static int workingHours =4;
+	static int workingHours =8;
 	static int availableClassrooms=1;
 	static int availableTimeSlots = 4;
-	static int genNumber = 1;					//to tez nie wiem czy static 
-	static int populationSize = 6;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
+	static int genNumber = 1000;					//to tez nie wiem czy static 
+	static int populationSize = 100;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
+	static double fitnessRate = 0.5;
 	ArrayList <Genotype> genotypes;
 	ArrayList <Zajecia> classes;			//wszystkie zajecia
 	int teachersCount;
 	int classesCount;
+	int studentGroupsCount;
 	
 	public Timetable(ZarzadzanieDanymi data)
 	{
@@ -27,9 +29,19 @@ public class Timetable {
 		this.classes = data.getArrayZajecia();
 		teachersCount=data.getArrayNauczyciel().size();
 		classesCount=data.getArrayKlasa().size();
+		studentGroupsCount=data.getArrayKlasa().size();
 		Genotype.setClassesNo(classes.size());
 		Genotype.setTimeSlots(availableTimeSlots);
 		System.out.println(teachersCount+" "+classesCount+"Ilosc slotow: "+availableTimeSlots);
+	}
+	
+	public static void setFitnessRate(double rate)
+	{
+		if(rate>1.0)
+			rate=1.0;
+		if(rate<0.0)
+			rate=0.0;
+		fitnessRate=rate;
 	}
 	
 	public static void setWorkingTime(int days, int hours)
@@ -67,8 +79,12 @@ public class Timetable {
 		while(genotypes.size()<populationSize)
 		{
 			Genotype gen = new Genotype();
+			
 			if(checkIfValid(gen.getChromosome()))
+			{
+				evaluateFitnessVal(gen);
 				genotypes.add(gen);
+			}
 			else
 				continue;
 		}
@@ -88,7 +104,7 @@ public class Timetable {
 
 		Collections.sort(genotypes, new Comparator<Genotype>() {
 		    public int compare(Genotype g1, Genotype g2) {
-		        return Integer.compare(g2.getFitnessVal(), g1.getFitnessVal());			//teraz jest rosnoco, jak zamienic to g1 i g2 
+		        return Double.compare(g2.getFitnessVal(), g1.getFitnessVal());			//teraz jest rosnoco, jak zamienic to g1 i g2 
 		    }});
 		//for(int i=0;i<genotypes.size();i++)
 		//	System.out.print(genotypes.get(i).fitnessVal+" ");
@@ -101,6 +117,69 @@ public class Timetable {
 		
 	}
 
+	private void evaluateFitnessVal(Genotype gen) 
+	{
+		double slotFitness=(workingHours-2)*workingDays*studentGroupsCount, 
+				earlyFitness=(Math.pow(2, workingHours)-1)*workingDays*availableClassrooms;
+		double maxSlot=slotFitness, maxEarly=earlyFitness;
+		ArrayList <Integer> chromosome = gen.getChromosome();
+		System.out.println("Rozmiar chromosomu: "+gen.toString());
+
+		
+		int i=0,j=0,k=0;			//j okresla ktora godzina danego dnia od 0 do (workingHours-1), k to dzien tygodnia
+		int groupId;
+		//pierwsze to ktory dzien, drugie to klasa
+		int [][] classArray = new int[workingDays][studentGroupsCount];
+		
+		while(i<availableTimeSlots)
+		{
+
+			if(chromosome.get(i)!=0)
+			{
+				//Early fitness
+				earlyFitness-=Math.pow(2,j);
+				
+				
+				//Slot fitness
+				groupId =classes.get(chromosome.get(i)-1).getKlasa().getId();
+				if(classArray[k][groupId]==0 || classArray[k][groupId]==j)
+					classArray[k][groupId]=j+1;	//umieszczamy zeby byly od 1 czyli 8:00 do np 12 czyli 19:00
+				else
+				{
+					slotFitness-=(j-classArray[k][groupId]);
+					System.out.println("LOL"+(j-classArray[k][groupId]));
+					classArray[k][groupId]=j+1;
+				}
+				
+				/*else				//sprawdzic jeszcze
+				 if(classArray[k][groupId]==0)
+					classArray[k][groupId]=j+1;	//umieszczamy zeby byly od 1 czyli 8:00 do np 12 czyli 19:00
+				else
+				{
+					if(j==classArray[k][groupId])	//roznica godziny
+						classArray[k][groupId]=j+1;
+					else
+					{
+						slotFitness-=(j-classArray[k][groupId]);
+						System.out.println("LOL"+(j-classArray[k][groupId]));
+						classArray[k][groupId]=j+1;
+					}
+				}*/
+				
+			}
+			
+			//zwiekszyc albo zmniejszyc indeksy
+			if(++i%availableClassrooms==0)
+				if(++j%workingHours==0)
+				{
+					j=0;
+					k++;
+				}
+		}
+		
+		gen.setFitnessVal(fitnessRate*slotFitness + (1-fitnessRate)*(maxSlot/maxEarly)*earlyFitness);
+	}
+	
 	//reprodukuj populacje
 	private void breedPopulation() {
 		
@@ -115,7 +194,11 @@ public class Timetable {
 			{
 				Genotype gen = new Genotype(genotypes.get(a).getChromosome(),genotypes.get(b).getChromosome());
 				if(checkIfValid(gen.getChromosome()))
+				{
+					evaluateFitnessVal(gen);
+					System.out.println("DZIECI:  "+gen.toString());
 					genotypes.add(gen);
+				}
 				else
 					continue;
 			}
@@ -123,18 +206,21 @@ public class Timetable {
 			{
 				Genotype gen = new Genotype(genotypes.get(b).getChromosome(),genotypes.get(a).getChromosome());
 				if(checkIfValid(gen.getChromosome()))
+				{
+					evaluateFitnessVal(gen);
 					genotypes.add(gen);
+				}
 				else
 					continue;
 			}
 		}
-		System.out.println("HOHO: "+genotypes.size());
+
 	}
 
 	private int rouletteSelect() 				//nazwa metody do zmiany
 	{	
 		// tu zastosowane fitness proportionate selection(kolo ruletki) ? mozliwe ze zmienic na inne albo dopisac kolejna
-		long fitnessSum=0;
+		double fitnessSum=0;
 		for(int i=0;i<populationSize;i++)
 			fitnessSum+=genotypes.get(i).getFitnessVal();
 		//System.out.println(fitnessSum);
@@ -158,7 +244,7 @@ public class Timetable {
 		boolean [][] classesArray = new boolean[workingDays*workingHours][classesCount];
 		int i=0, j=0;
 		
-		while(i<chromosome.size())
+		while(i<availableTimeSlots)
 		{
 			if(chromosome.get(i)==0)
 			{
