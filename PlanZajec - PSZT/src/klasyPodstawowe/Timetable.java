@@ -14,7 +14,7 @@ public class Timetable {
 	static int workingHours =8;
 	static int availableClassrooms=1;
 	static int availableTimeSlots = 4;
-	static int genNumber = 100;					//to tez nie wiem czy static 
+	static int genNumber = 1000;					//to tez nie wiem czy static 
 	static int populationSize = 100;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
 	static double fitnessRate = 0.5;
 	ArrayList <Genotype> genotypes;
@@ -98,8 +98,14 @@ public class Timetable {
 			breedPopulation();
 			selectNextGeneration();
 		}
-		for(int i=0;i<genotypes.size();i++)
-			System.out.println(genotypes.get(i).toString());
+		/*for(int i=0;i<genotypes.size();i++)
+			System.out.println(genotypes.get(i).toString());*/
+	}
+	
+	public Genotype getBestChromosome()
+	{
+		Genotype chromosome=genotypes.get(0);
+		return chromosome;
 	}
 
 	private void selectNextGeneration() {

@@ -19,6 +19,7 @@ public class Main {
 		Timetable.setAvailableClassrooms(zarzadzanieDanymi.getSalaAmount());
 		Timetable timetable = new Timetable(zarzadzanieDanymi);
 		timetable.geneticAlgorithm();
+		System.out.println("Najlepszy: "+timetable.getBestChromosome().toString());
 	}
 
 }
