@@ -26,7 +26,7 @@ public class PdfCreator {
 
 	private ZarzadzanieDanymi data;
 	String[] start_time = {"8.15","9.15","10.15","11.15","12.15","13.15","14.15","15.15","16.15","17.15","18.15","19.15"};
-	String[] days = {"Pon","Wt","Sr","Czw","Pt"};
+	String[] days = {"Pon","Wt","Sr","Czw","Pt","S","N"};
 	public PdfCreator(ZarzadzanieDanymi d)
 	{
 		data = d;
@@ -50,7 +50,8 @@ public class PdfCreator {
 			table = new Table(Timetable.workingDays+1);
 			
 			table.addCell("");
-			for (int i=0; i<days.length;i++)
+			
+			for (int i=0; i<Timetable.workingDays;i++)
 				table.addCell(days[i]);
 			
 			for (int i=0; i<Timetable.workingHours; i++)
