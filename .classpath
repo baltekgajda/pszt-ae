@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="PlanZajec - PSZT/src"/>
+	<classpathentry kind="src" path="PlanZajec - PSZT/lib"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="PlanZajec - PSZT/lib/itext7-forms-7.0.2.jar"/>
+	<classpathentry kind="lib" path="PlanZajec - PSZT/lib/itext7-io-7.0.2.jar"/>
+	<classpathentry kind="lib" path="PlanZajec - PSZT/lib/itext7-kernel-7.0.2.jar"/>
+	<classpathentry kind="lib" path="PlanZajec - PSZT/lib/itext7-layout-7.0.2.jar"/>
+	<classpathentry kind="lib" path="PlanZajec - PSZT/lib/itext7-pdfa-7.0.2.jar"/>
+	<classpathentry kind="lib" path="PlanZajec - PSZT/lib/itext7-pdftest-7.0.2.jar"/>
+	<classpathentry kind="lib" path="PlanZajec - PSZT/lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="PlanZajec - PSZT/lib/slf4j-simple-1.7.25.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
