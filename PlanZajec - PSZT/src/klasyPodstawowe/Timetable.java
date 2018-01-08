@@ -32,7 +32,7 @@ public class Timetable {
 		genotypes=new ArrayList<Genotype>();
 		this.classes = data.getArrayZajecia();
 		teachersCount=data.getArrayNauczyciel().size();
-		classesCount=data.getArrayKlasa().size();
+		classesCount=classes.size();
 		studentGroupsCount=data.getArrayKlasa().size();
 		Genotype.setClassesNo(classes.size());
 		Genotype.setTimeSlots(availableTimeSlots);
