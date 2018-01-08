@@ -90,6 +90,9 @@ public class Timetable {
 		Timetable.genNumber=number;
 	}
 	
+	/**
+	 * Creates randomly generated population of valid genotypes
+	 */
 	private void generateFirstPopulation()
 	{
 		Genotype.setTimeSlots(availableTimeSlots);
@@ -213,7 +216,7 @@ public class Timetable {
 	//reprodukuj populacje
 	private void breedPopulation() {
 		
-		//najpierw wybieramy rodzicow
+		//choose 2 parents using roulette selection method
 		int a,b;
 		for(int i=0;i<populationSize/2;i++)
 		{
