@@ -25,14 +25,20 @@ public class PdfCreator {
 	
 
 	private ZarzadzanieDanymi data;
-	String[] start_time = {"8.15","9.15","10.15","11.15","12.15","13.15","14.15","15.15","16.15","17.15","18.15","19.15"};
-	String[] days = {"Pon","Wt","Sr","Czw","Pt","S","N"};
+	String[] start_time = {"8.15","9.15","10.15","11.15","12.15","13.15","14.15","15.15","16.15","17.15","18.15","19.15"};//working hours start time
+	String[] days = {"Pon","Wt","Sr","Czw","Pt","S","N"};//working days names
 	public PdfCreator(ZarzadzanieDanymi d)
 	{
 		data = d;
 	}
 	
-	public void genotypeToFile(Genotype gen, String filename) throws FileNotFoundException
+	/**
+	 * Writes timetable represented by given genotype in human readable representation in pdf file
+	 * @param gen genotype of timetable, which is to be saved in graphical (visual) representation
+	 * @param filename output file path (relative to project directory)
+	 * @throws FileNotFoundException if file error occurred
+	 */
+	public void genotypeToFile(Genotype gen, String filename) throws FileNotFoundException 
 	{
 		
 		PdfWriter writer = new PdfWriter(filename); //init pdf writter
@@ -43,28 +49,28 @@ public class PdfCreator {
 		Table table;
 		
 		
-		for (ClassTable ct:map.values())
+		for (ClassTable ct:map.values()) //iterate through ClassTables for all student groups
 		{
-			document.add(new Paragraph(ct.k.getNazwa()));
+			document.add(new Paragraph(ct.k.getNazwa())); //add student group name
 			
 			table = new Table(Timetable.workingDays+1);
 			
 			table.addCell("");
 			
-			for (int i=0; i<Timetable.workingDays;i++)
+			for (int i=0; i<Timetable.workingDays;i++) //add day names
 				table.addCell(days[i]);
 			
-			for (int i=0; i<Timetable.workingHours; i++)
+			for (int i=0; i<Timetable.workingHours; i++) //add lessons
 			{
 				table.addCell(start_time[i]);
 				
 				for (int j=0; j<Timetable.workingDays; j++)
 				{
-					if (ct.table[j][i]==null)
+					if (ct.table[j][i]==null) //empty slot
 					{
 						table.addCell("-");
 					}
-					else
+					else //occupied slot
 					{
 						int room = ct.table[j][i].room;
 						Zajecia z = getZajecie(ct.table[j][i].id);
@@ -81,12 +87,18 @@ public class PdfCreator {
 		
 	}
 	
+	/**
+	 * Converts timetable from genotype representation to Map, where key is student group id, and value is ClassTable 
+	 * @param gen genotype to convert
+	 * @see ClassTable
+	 * @return Map<Student_group_id,ClassTable>
+	 */
 	private HashMap<Integer,ClassTable> transformGenotype(Genotype gen)
 	{
 		int days = Timetable.workingDays;
 		int hours = Timetable.workingHours;
 		int rooms = Timetable.availableClassrooms;
-		ArrayList<Klasa> classess = data.getArrayKlasa();
+		ArrayList<Klasa> classess = data.getArrayKlasa();//list of all classes
 		ArrayList<Integer> chrom = gen.getChromosome();
 		
 		HashMap<Integer,ClassTable> tableMap = new HashMap<Integer,ClassTable>();
@@ -105,10 +117,11 @@ public class PdfCreator {
 		{
 			int id = i.intValue();
 			int groupId;
-			if (id!=0)
+		
+			if (id!=0)//if timeslot is not empty
 			{
 								
-				Zajecia z = data.getArrayZajecia().get(id-1);
+				Zajecia z =getZajecie(id);
 				
 				if (z==null)
 				{
@@ -121,10 +134,10 @@ public class PdfCreator {
 				}
 				
 				groupId = z.getKlasa().getId();
-				tableMap.get(groupId).addClass(id, actDay, actHour, actRoom);
+				tableMap.get(groupId).addClass(id, actDay, actHour, actRoom);//add Lesson to timetable of specific student group
 			}
 					
-			
+			//increment room, hour,day to iterate through entire genotype
 			actRoom++;
 			if (actRoom>rooms)	
 			{
@@ -134,7 +147,6 @@ public class PdfCreator {
 				{
 					actHour=1;
 					actDay++;
-					
 					if (actDay>days)
 						break;
 				}
@@ -145,7 +157,11 @@ public class PdfCreator {
 		return tableMap;	
 	}
 	
-	
+	/**
+	 * Get Zajecie object with specified id
+	 * @param id
+	 * @return
+	 */
 	private Zajecia getZajecie(int id)
 	{
 		Zajecia z = data.getArrayZajecia().get(id-1);
@@ -163,21 +179,4 @@ public class PdfCreator {
 		return z;
 	}
 	
-	private Przedmiot getPrzedmiot(int id)
-	{
-		Przedmiot p = data.getArrayPrzedmiot().get(id-1);
-/*
-		if (p==null || p.getId()!=id)
-		{
-			for (Zajecia zaj:data.getArrayZajecia())
-			{
-				if (zaj.getId()==id)
-					z=zaj;
-					break;
-			}
-		}
-*/
-		return p;
-	}
-
 }
