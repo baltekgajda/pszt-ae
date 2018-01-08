@@ -23,6 +23,10 @@ public class Timetable {
 	int classesCount;
 	int studentGroupsCount;
 	
+	/**
+	 * Class constructor
+	 * @param data
+	 */
 	public Timetable(ZarzadzanieDanymi data)
 	{
 		genotypes=new ArrayList<Genotype>();
@@ -35,6 +39,10 @@ public class Timetable {
 		//System.out.println(teachersCount+" "+classesCount+"Ilosc slotow: "+availableTimeSlots);
 	}
 	
+	/**
+	 * Set fitness ratio (between number of empty slots and  earliness) for Timetable evaluation function
+	 * @param rate
+	 */
 	public static void setFitnessRate(double rate)
 	{
 		if(rate>1.0)
@@ -44,6 +52,11 @@ public class Timetable {
 		fitnessRate=rate;
 	}
 	
+	/**
+	 * Set working times for timetable 
+	 * @param days available days (from 1 to 7)
+	 * @param hours available hours (from 1 to 12)
+	 */
 	public static void setWorkingTime(int days, int hours)
 	{
 		Timetable.workingDays = days;
@@ -68,6 +81,10 @@ public class Timetable {
 			Timetable.populationSize=size;
 	}
 	
+	/**
+	 * Set number of timetable generations
+	 * @param number
+	 */
 	public static void setGenNumber(int number)
 	{
 		Timetable.genNumber=number;
@@ -90,6 +107,9 @@ public class Timetable {
 		}
 	}
 	
+	/**
+	 * Runs genetics algorithm with given number of generations
+	 */
 	public void geneticAlgorithm()
 	{
 		generateFirstPopulation();
@@ -101,7 +121,10 @@ public class Timetable {
 		/*for(int i=0;i<genotypes.size();i++)
 			System.out.println(genotypes.get(i).toString());*/
 	}
-	
+	/**
+	 * Returns the best chromosome in population
+	 * 
+	 */
 	public Genotype getBestChromosome()
 	{
 		Genotype chromosome=genotypes.get(0);

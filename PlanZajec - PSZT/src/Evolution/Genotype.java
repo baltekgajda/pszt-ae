@@ -22,7 +22,11 @@ public class Genotype {
 	public ArrayList<Integer> getChromosome() {
 		return chromosome;
 	}
-
+	
+	/**
+	 * Sets probability of mutation of a single gene
+	 * @param mutationRate
+	 */
 	public static void setMutationRate(double mutationRate) {
 		if(mutationRate>1)
 			mutationRate=1;
@@ -32,6 +36,10 @@ public class Genotype {
 	}
 
 
+	/**
+	 * Class constructor
+	 * Creates random schedule
+	 */
 	public Genotype()
 	{
 		if(classesNo>timeSlots)
@@ -44,14 +52,25 @@ public class Genotype {
 		//System.out.println(this.toString());	
 	}
 	
-
+	/**
+	 * Class constructor
+	 * Creates child from 2 parents chromosomes, using crossover and mutation
+	 * @param parent1 first parent's chromosome
+	 * @param parent2 second parent's chromosome
+	 */
 	public Genotype(ArrayList<Integer> parent1, ArrayList<Integer> parent2) 
 	{
 		crossoverOX1(parent1, parent2);
 		mutate();
 	}
 
-
+	/**
+	 * Mutation function
+	 * With probability given by mutationRate, every gene in chromosome can mutate 
+	 * (change value to any value from Class Id range)
+	 * To avoid duplicates, and keep chromosome valid, old gene swaps place 
+	 * with the one that holds new value
+	 */
 	private void mutate() 
 	{
 		Random generator=new Random();
@@ -76,7 +95,13 @@ public class Genotype {
 		}
 	}
 
-
+	/**
+	 * Order one crossover function
+	 * In result of 2 parents crossover on child is created
+	 * The child's chromosome is stored in chromosome variable
+	 * @param parent1
+	 * @param parent2
+	 */
 	private void crossoverOX1(ArrayList<Integer> parent1, ArrayList<Integer> parent2) 	//czy moze crossover powinien byc w timetable???
 	{
 		Random generator = new Random();
