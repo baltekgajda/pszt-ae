@@ -179,5 +179,6 @@ public class Genotype {
 	{
 		return fitnessVal;
 	}
+	
 }
 

@@ -11,7 +11,7 @@ import inOut.ZarzadzanieDanymi;
 public class Timetable {
 
 	public static int workingDays = 5;
-	public static int workingHours =8;
+	public static int workingHours =10;
 	public static int availableClassrooms=1;
 	static int availableTimeSlots = 4;
 	static int genNumber = 1000;					//to tez nie wiem czy static 
@@ -104,6 +104,7 @@ public class Timetable {
 			{
 				evaluateFitnessVal(gen);
 				genotypes.add(gen);
+				System.out.println(getInterferenceNumber(gen.getChromosome()));
 			}
 			else
 				continue;
@@ -132,6 +133,15 @@ public class Timetable {
 	{
 		Genotype chromosome=genotypes.get(0);
 		return chromosome;
+	}
+	
+	public Genotype getBestValidChromosome()
+	{
+		for (Genotype g:genotypes)
+			if (orginalCheckifValid(g.getChromosome()))
+				return g;
+		
+		return null;
 	}
 
 	private void selectNextGeneration() {
@@ -210,7 +220,12 @@ public class Timetable {
 				}
 		}
 		
-		gen.setFitnessVal(fitnessRate*slotFitness + (1-fitnessRate)*(maxSlot/maxEarly)*earlyFitness);
+		int infNum = getInterferenceNumber(chromosome);
+		
+		double val = fitnessRate*slotFitness + (1-fitnessRate)*(maxSlot/maxEarly)*earlyFitness;
+		if (infNum>0)
+			val = val/(2^infNum);
+		gen.setFitnessVal(val);
 	}
 	
 	//reprodukuj populacje
@@ -276,6 +291,83 @@ public class Timetable {
 		boolean [][] teacherArray = new boolean[workingDays*workingHours][teachersCount];
 		boolean [][] classesArray = new boolean[workingDays*workingHours][classesCount];
 		int i=0, j=0;
+		/*
+		while(i<availableTimeSlots)
+		{
+			if(chromosome.get(i)==0)
+			{
+				if(++i%availableClassrooms==0)
+					j++;
+				continue;
+			}
+			
+			int teacherId=classes.get(chromosome.get(i)-1).getNauczyciel().getId();
+			int classId=classes.get(chromosome.get(i)-1).getKlasa().getId();
+			
+			if(teacherArray[j][teacherId]==true || classesArray[j][classId]==true)
+			{
+				//System.out.println("!!!");
+				return false;
+			}
+
+			else
+			{
+				teacherArray[j][teacherId]=true;
+				classesArray[j][classId]=true;
+			}
+			
+			if(++i%availableClassrooms==0)
+				j++;
+		}
+		*/
+		return true;
+	}
+	
+	private int getInterferenceNumber(ArrayList<Integer> chromosome)
+	{
+		int [][] teacherArray = new int[workingDays*workingHours][teachersCount];
+		int [][] classesArray = new int[workingDays*workingHours][studentGroupsCount];
+		int i=0, j=0;
+		
+		while(i<availableTimeSlots)
+		{
+			if(chromosome.get(i)==0)
+			{
+				if(++i%availableClassrooms==0)
+					j++;
+				continue;
+			}
+			
+			int teacherId=classes.get(chromosome.get(i)-1).getNauczyciel().getId();
+			int classId=classes.get(chromosome.get(i)-1).getKlasa().getId();
+		
+			teacherArray[j][teacherId]++;
+			classesArray[j][classId]++;
+			
+			
+			if(++i%availableClassrooms==0)
+				j++;
+		}
+		int sum=0;
+		for (i=0; i<workingDays*workingHours; i++)
+			for (j=0; j<teachersCount; j++)
+				if (teacherArray[i][j]>1)
+					sum++;
+		
+		for (i=0; i<workingDays*workingHours; i++)
+			for (j=0; j<studentGroupsCount; j++)
+				if (classesArray[i][j]>1)
+					sum++;	
+		
+		return sum;
+	}
+	
+	
+	private boolean orginalCheckifValid(ArrayList<Integer> chromosome)
+	{
+		boolean [][] teacherArray = new boolean[workingDays*workingHours][teachersCount];
+		boolean [][] classesArray = new boolean[workingDays*workingHours][studentGroupsCount];
+		int i=0, j=0;
 		
 		while(i<availableTimeSlots)
 		{
@@ -304,6 +396,7 @@ public class Timetable {
 			if(++i%availableClassrooms==0)
 				j++;
 		}
+		
 		return true;
 	}
 }

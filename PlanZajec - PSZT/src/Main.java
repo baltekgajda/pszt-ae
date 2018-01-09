@@ -3,6 +3,9 @@ import java.io.IOException;
 import inOut.ZarzadzanieDanymi;
 import klasyPodstawowe.Timetable;
 import PdfVis.PdfCreator;
+
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -13,7 +16,7 @@ public class Main {
 	 * @throws IOException 
 	 */
 	
-	static String defaultInFile = "D:/git/pszt-ae/PlanZajec - PSZT/src/plikiUzytkowe/dane.txt";
+	static String defaultInFile = "D:/git/pszt-ae/PlanZajec - PSZT/src/plikiUzytkowe/dane3.txt";
 	static String defaultOutFile = "out.pdf";
 	static int defaultPopulation=1000;
 	static int defaultGenerations=1000;
@@ -38,11 +41,15 @@ public class Main {
 		Timetable.setPopulationSize(m.getPopulation());
 		Timetable.setGenNumber(m.getGenerations());
 		timetable.geneticAlgorithm();
-		System.out.println("Najlepszy: "+timetable.getBestChromosome().toString());
 		
-		PdfCreator pdf = new PdfCreator(zarzadzanieDanymi);
-		pdf.genotypeToFile(timetable.getBestChromosome(), m.getOutFile());
 		
+		if (timetable.getBestChromosome()!=null)
+		{
+			System.out.println("Najlepszy: "+timetable.getBestChromosome().toString());
+			PdfCreator pdf = new PdfCreator(zarzadzanieDanymi);
+			pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());
+		}
+		else System.out.println("Not found");		
 		
 	}
 	
