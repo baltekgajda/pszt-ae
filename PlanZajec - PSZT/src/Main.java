@@ -16,7 +16,7 @@ public class Main {
 	 * @throws IOException 
 	 */
 	
-	static String defaultInFile = "D:/git/pszt-ae/PlanZajec - PSZT/src/plikiUzytkowe/dane3.txt";
+	static String defaultInFile = "C:\\Users\\bartl\\Desktop\\dane3.txt";
 	static String defaultOutFile = "out.pdf";
 	static int defaultPopulation=1000;
 	static int defaultGenerations=1000;
@@ -47,7 +47,8 @@ public class Main {
 		{
 			System.out.println("Najlepszy: "+timetable.getBestChromosome().toString());
 			PdfCreator pdf = new PdfCreator(zarzadzanieDanymi);
-			pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());
+			//pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());
+			pdf.genotypeToFile(timetable.getBestChromosome(), m.getOutFile());
 		}
 		else System.out.println("Not found");		
 		

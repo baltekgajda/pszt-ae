@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+import klasyPodstawowe.Timetable;
+import klasyPodstawowe.Zajecia;
+
 public class Genotype {
 
 	static int timeSlots=60;		//rozmiar chromosome
@@ -150,6 +153,8 @@ public class Genotype {
 		Random generator = new Random();
 		for(int i=timeSlots-1;i>=1;i--)
 			Collections.swap(chromosome, generator.nextInt(i+1), i);
+		
+		repair();
 	}
 
 	public static void setTimeSlots(int timeSlots)
@@ -179,6 +184,74 @@ public class Genotype {
 	{
 		return fitnessVal;
 	}
+	
+	//repairs chromosome so that no teacher or classe have lessons more than once in a hour
+		public void repair(){
+			for (Integer i = new Integer(0); i<chromosome.size(); i=i+Timetable.availableClassrooms) //loop which checks every 8 each day for any problem in the genotype
+			{
+				for (Integer j = new Integer(i); j<i+Timetable.availableClassrooms; j++)
+				{
+					if (!check(i, j)) move(i, j); //if there is an conflict, resolve the conflict, move the class(j)
+				}
+			}
+		}
+		
+		//move the classes to a hour in which there will be no conflict
+		private void move(int hourSlot, int classToMove) {
+			for (int i = 0; i<chromosome.size();  i=i+Timetable.availableClassrooms)
+			{
+				if (i==hourSlot) continue; //this is to omit the hour from which the class is taken to be moved
+				if (!check(i, classToMove)) continue; //if placing the class in a hourslot creates a conflict, continue
+				Integer aux = new Integer(checkIfPlace(i)); //find empty classroom for the class
+				if (aux==null) continue; //if there is no empty classroom, continue
+				
+				moveTo(classToMove, i); //we found empty classroom, so now lets move the class
+				break;
+			}
+			
+		}
+
+		//moves the class to the designated place in the chromosome
+		private void moveTo(int classToMove, int where) {
+			chromosome.set(where, chromosome.get(classToMove)); //move the chromosome
+			chromosome.set(classToMove, 0); //set its old position to zero(empty)
+			
+		}
+		//returns the position in chromosome which is not taken by any class(empty classroom)
+		private Integer checkIfPlace(int hourSlot) {
+			for(int i=0; i<Timetable.availableClassrooms; i++)
+			{
+				if (chromosome.get(i+hourSlot)==0) return i+hourSlot;
+			}
+			return null;
+			
+			
+		}
+
+		//check whether there is a teacher or class that have lesson more than once in a hour
+		private boolean check(int hourStart, int classToCheck)
+		{
+			if (classToCheck==0) return true;
+			if (chromosome.get(classToCheck)==0) return true;
+			Zajecia aux = Timetable.returnClass(chromosome.get(classToCheck));
+			for (int i=hourStart; i<Timetable.availableClassrooms+hourStart; i++)
+			{
+				if (chromosome.get(i)==0) continue;
+				if (i==classToCheck) continue;
+				if (!checkIfBoth(aux, Timetable.returnClass(chromosome.get(i)))) return false;
+			}
+			return true;
+			
+		}
+		
+		//check whether to classes have the same teacher or the same 
+		private boolean checkIfBoth(Zajecia class1, Zajecia class2)
+		{
+			if (class1.getNauczyciel().equals(class2.getNauczyciel())) return false;
+			if (class1.getKlasa().equals(class2.getKlasa())) return false;
+			return true;
+			
+		}
 	
 }
 

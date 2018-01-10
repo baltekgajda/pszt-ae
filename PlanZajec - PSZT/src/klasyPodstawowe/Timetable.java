@@ -16,9 +16,9 @@ public class Timetable {
 	static int availableTimeSlots = 4;
 	static int genNumber = 1000;					//to tez nie wiem czy static 
 	static int populationSize = 100;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
-	static double fitnessRate = 0.5;
+	static double fitnessRate = 0.7;
 	ArrayList <Genotype> genotypes;
-	ArrayList <Zajecia> classes;			//wszystkie zajecia
+	static ArrayList <Zajecia> classes;			//wszystkie zajecia
 	int teachersCount;
 	int classesCount;
 	int studentGroupsCount;
@@ -30,7 +30,7 @@ public class Timetable {
 	public Timetable(ZarzadzanieDanymi data)
 	{
 		genotypes=new ArrayList<Genotype>();
-		this.classes = data.getArrayZajecia();
+		classes = data.getArrayZajecia();
 		teachersCount=data.getArrayNauczyciel().size();
 		classesCount=classes.size();
 		studentGroupsCount=data.getArrayKlasa().size();
@@ -99,7 +99,7 @@ public class Timetable {
 		while(genotypes.size()<populationSize)
 		{
 			Genotype gen = new Genotype();
-			
+			//gen.repair();
 			if(checkIfValid(gen.getChromosome()))
 			{
 				evaluateFitnessVal(gen);
@@ -125,6 +125,7 @@ public class Timetable {
 		/*for(int i=0;i<genotypes.size();i++)
 			System.out.println(genotypes.get(i).toString());*/
 	}
+	
 	/**
 	 * Returns the best chromosome in population
 	 * 
@@ -199,7 +200,8 @@ public class Timetable {
 					classArray[k][groupId]=j+1;	//umieszczamy zeby byly od 1 czyli 8:00 do np 12 czyli 19:00
 				else
 				{
-					if(j==classArray[k][groupId])	//roznica godziny
+					if(j==clas
+					sArray[k][groupId])	//roznica godziny
 						classArray[k][groupId]=j+1;
 					else
 					{
@@ -241,6 +243,7 @@ public class Timetable {
 			while(genotypes.size()-populationSize==2*i)
 			{
 				Genotype gen = new Genotype(genotypes.get(a).getChromosome(),genotypes.get(b).getChromosome());
+				gen.repair();
 				if(checkIfValid(gen.getChromosome()))
 				{
 					evaluateFitnessVal(gen);
@@ -399,4 +402,10 @@ public class Timetable {
 		
 		return true;
 	}
+	
+	static public Zajecia returnClass(int classNumber)
+	{
+		return classes.get(classNumber-1);
+	}
+
 }
