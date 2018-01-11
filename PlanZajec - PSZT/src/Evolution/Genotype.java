@@ -12,7 +12,7 @@ public class Genotype {
 	static int timeSlots=60;		//rozmiar chromosome
 	static int classesNo=0;
 	static double mutationRate=0.2;
-	
+	static int repairCounter = 0;
 	ArrayList<Integer> chromosome;		//czy zamienic na zwykla []?
 	double fitnessVal=0;					//czy zamienic na inna niz int
 	
@@ -42,8 +42,9 @@ public class Genotype {
 	/**
 	 * Class constructor
 	 * Creates random schedule
+	 * @throws Exception 
 	 */
-	public Genotype()
+	public Genotype() throws Exception
 	{
 		if(classesNo>timeSlots)
 		{
@@ -52,6 +53,18 @@ public class Genotype {
 		}
 		
 		createRandomChromosome();
+		//System.out.println(this.toString());	
+	}
+	
+	public Genotype(ArrayList <Integer> ar) throws Exception
+	{
+		if(classesNo>timeSlots)
+		{
+			System.out.println("Too many classes to fit in a timetable.");		//dodac exception i wyjsc z tego
+			return;
+		}
+		
+		setChromosome(ar);
 		//System.out.println(this.toString());	
 	}
 	
@@ -142,7 +155,7 @@ public class Genotype {
 	
 
 
-	private void createRandomChromosome()
+	private void createRandomChromosome() throws Exception
 	{
 		chromosome = new ArrayList<Integer>(timeSlots);
 		for(int i=1;i<=classesNo;i++)
@@ -186,19 +199,80 @@ public class Genotype {
 	}
 	
 	//repairs chromosome so that no teacher or classe have lessons more than once in a hour
-		public void repair(){
-			for (Integer i = new Integer(0); i<chromosome.size(); i=i+Timetable.availableClassrooms) //loop which checks every 8 each day for any problem in the genotype
-			{
+		public void repair() throws Exception{
+			repairCounter++;
+			System.out.println(repairCounter);
+			System.out.println("before: " + chromosome.toString());
+			for (Integer i = new Integer(0); i<chromosome.size(); i=i+Timetable.availableClassrooms) //loop which checks every hour of everyday for any problem in the genotype
+			{//System.out.println(chromosome.size());
 				for (Integer j = new Integer(i); j<i+Timetable.availableClassrooms; j++)
 				{
-					if (!check(i, j)) move(i, j); //if there is an conflict, resolve the conflict, move the class(j)
+					if (!check(i, j)) 
+						{
+							swap(j, findSwap(i, j));
+							System.out.println("after swap: " + chromosome.toString());
+						}//move(i, j); //if there is an conflict, resolve the conflict, move the class(j)
 				}
 			}
+//			System.out.println("after: " + chromosome.toString() + "\n");
 		}
 		
+		//returns the coordinates found for conflictClass to swap
+		private int findSwap(int hourSlot, int conflictClass) throws Exception
+		{
+			for (Integer i = new Integer(0); i<chromosome.size(); i=i+Timetable.availableClassrooms)
+			{
+				if (i==hourSlot)//no reason to check the hourSlot of the conflictClass from which we are taking it
+					{
+						//i=+Timetable.availableClassrooms; // problem with continue, it omits the increase in (i)
+						continue; 
+					}
+				Integer j = new Integer(i);
+				for (; j<i+Timetable.availableClassrooms; j++)
+				{
+					if (canSwap(conflictClass, hourSlot, j, i)) return j; //lets see is it possible to swap the class in the (conflictClass) slot for the class in the (j) slot
+				}
+			}
+			throw new Exception("impossible to fit all the classes without conflict, \nhourslot: " + hourSlot + "\nconflictClass: "
+			+ conflictClass + "\nrepair counter: " + repairCounter + chromosome.toString());
+			//return 0;
+		}
+		
+		private void swap(int slot1, int slot2)
+		{
+			Collections.swap(chromosome, slot1, slot2);
+		}
+			
+		private boolean canSwap(int slot1, int hourslot1, int slot2, int hourslot2)
+		{
+			//System.out.println("to check swap: " + chromosome.get(slot1) + " and " + chromosome.get(slot2));
+			for (int x=hourslot1; x<hourslot1+Timetable.availableClassrooms; x++)  //check if inserting the class (slot2) under (slot1), would create a conflict 
+			{
+				if (slot2 == 0) break;
+				if (x==slot1) continue; //this is to omit the class we are trying to swawp
+				if (!checkIfBoth(chromosome.get(slot2), chromosome.get(x)))
+				{
+					//System.out.println("false");
+					return false;
+				}
+			}
+		
+			for (int x=hourslot2; x<hourslot1+Timetable.availableClassrooms; x++)  //check if inserting the class (slot1)  under (slot2), would create a conflict 
+			{
+				if (slot1 == 0) break;
+				if (x==slot2) continue;
+				if (!checkIfBoth(chromosome.get(slot1), chromosome.get(x)))
+				{
+//					System.out.println("false");
+					return false;
+				}
+			}
+//			System.out.println("true");
+			return true;
+		}
 		//move the classes to a hour in which there will be no conflict
 		private void move(int hourSlot, int classToMove) {
-			for (int i = 0; i<chromosome.size();  i=i+Timetable.availableClassrooms)
+			for (int i = 0; i<chromosome.size();  i++)
 			{
 				if (i==hourSlot) continue; //this is to omit the hour from which the class is taken to be moved
 				if (!check(i, classToMove)) continue; //if placing the class in a hourslot creates a conflict, continue
@@ -222,6 +296,7 @@ public class Genotype {
 			for(int i=0; i<Timetable.availableClassrooms; i++)
 			{
 				if (chromosome.get(i+hourSlot)==0) return i+hourSlot;
+				
 			}
 			return null;
 			
@@ -231,27 +306,39 @@ public class Genotype {
 		//check whether there is a teacher or class that have lesson more than once in a hour
 		private boolean check(int hourStart, int classToCheck)
 		{
-			if (classToCheck==0) return true;
+			//if (classToCheck==0) return true;
 			if (chromosome.get(classToCheck)==0) return true;
-			Zajecia aux = Timetable.returnClass(chromosome.get(classToCheck));
+			int aux = chromosome.get(classToCheck);
 			for (int i=hourStart; i<Timetable.availableClassrooms+hourStart; i++)
 			{
-				if (chromosome.get(i)==0) continue;
-				if (i==classToCheck) continue;
-				if (!checkIfBoth(aux, Timetable.returnClass(chromosome.get(i)))) return false;
+				if (chromosome.get(i)==0) continue; //if a classsroom is empty, no problem, continue
+				if (i==classToCheck) continue; //if we are checking the same class, don't do that, continue
+				if (!checkIfBoth(aux, chromosome.get(i))) return false; //check if a teacher or a class is having lessons more than once a hour
 			}
 			return true;
 			
 		}
 		
 		//check whether to classes have the same teacher or the same 
-		private boolean checkIfBoth(Zajecia class1, Zajecia class2)
+		private boolean checkIfBoth(int class1, int class2)
 		{
-			if (class1.getNauczyciel().equals(class2.getNauczyciel())) return false;
-			if (class1.getKlasa().equals(class2.getKlasa())) return false;
+			if (class1 == 0 || class2 == 0) return true;
+			//System.out.println("CHECKING:" + class1.getId() + " vs " + class2.getId());
+			if (Timetable.returnClass(class1).getNauczyciel().equals(Timetable.returnClass(class2).getNauczyciel())) 
+					return false;
+
+			if (Timetable.returnClass(class1).getKlasa().equals(Timetable.returnClass(class2).getKlasa()))
+					return false;
+
 			return true;
 			
 		}
+
+		public void setChromosome(ArrayList<Integer> chromosome) {
+			this.chromosome = chromosome; 
+		}
+		
+		
 	
 }
 

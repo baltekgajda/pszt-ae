@@ -92,8 +92,9 @@ public class Timetable {
 	
 	/**
 	 * Creates randomly generated population of valid genotypes
+	 * @throws Exception 
 	 */
-	private void generateFirstPopulation()
+	private void generateFirstPopulation() throws Exception
 	{
 		Genotype.setTimeSlots(availableTimeSlots);
 		while(genotypes.size()<populationSize)
@@ -104,7 +105,7 @@ public class Timetable {
 			{
 				evaluateFitnessVal(gen);
 				genotypes.add(gen);
-				System.out.println(getInterferenceNumber(gen.getChromosome()));
+				//System.out.println(getInterferenceNumber(gen.getChromosome()));
 			}
 			else
 				continue;
@@ -113,8 +114,9 @@ public class Timetable {
 	
 	/**
 	 * Runs genetics algorithm with given number of generations
+	 * @throws Exception 
 	 */
-	public void geneticAlgorithm()
+	public void geneticAlgorithm() throws Exception
 	{
 		generateFirstPopulation();
 		for(int i=0;i<genNumber;i++)
@@ -231,7 +233,7 @@ public class Timetable {
 	}
 	
 	//reprodukuj populacje
-	private void breedPopulation() {
+	private void breedPopulation() throws Exception {
 		
 		//choose 2 parents using roulette selection method
 		int a,b;
@@ -408,4 +410,11 @@ public class Timetable {
 		return classes.get(classNumber-1);
 	}
 
+	public static ArrayList<Zajecia> getClasses() {
+		return classes;
+	}
+
+
+
+	
 }

@@ -1,13 +1,11 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 
+import Evolution.Genotype;
+import PdfVis.PdfCreator;
 import inOut.ZarzadzanieDanymi;
 import klasyPodstawowe.Timetable;
-import PdfVis.PdfCreator;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Main {
 
@@ -16,17 +14,19 @@ public class Main {
 	 * @throws IOException 
 	 */
 	
-	static String defaultInFile = "C:\\Users\\bartl\\Desktop\\dane3.txt";
+	
+	static String defaultInFile = "PlanZajec - PSZT/resources/dane2.txt";
 	static String defaultOutFile = "out.pdf";
-	static int defaultPopulation=1000;
-	static int defaultGenerations=1000;
+	static int defaultPopulation=10;
+	static int defaultGenerations=10;
 	
 	private String inFile;
 	private String outFile;
 	private int population;
 	private int generations;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
+
 		
 		Main m = new Main();
 		m.getParameters();
@@ -35,11 +35,23 @@ public class Main {
 	//	URL url = getClass().getResource("dane.txt");
 		zarzadzanieDanymi.setFilePath(m.getInFile());
 		zarzadzanieDanymi.loadData();
-		
+//		Timetable.setWorkingTime(2, 2);
 		Timetable.setAvailableClassrooms(zarzadzanieDanymi.getSalaAmount());
 		Timetable timetable = new Timetable(zarzadzanieDanymi);
 		Timetable.setPopulationSize(m.getPopulation());
 		Timetable.setGenNumber(m.getGenerations());
+		System.out.println(Timetable.getClasses().toString());
+		
+//		for (int i = 0; i < 3; i++)
+//		{
+//			if (i==2) continue;
+//			for (int j = i; j< 3; j++)
+//			{
+//				System.out.println(i);
+//			}
+//		}
+//		test();
+		
 		timetable.geneticAlgorithm();
 		
 		
@@ -73,9 +85,9 @@ public class Main {
 	void readInFile()
 	{
 		Scanner scanner  = new Scanner(System.in);
-		inFile = scanner.nextLine();
+		//inFile = scanner.nextLine();
 		
-		if (inFile.length()==0)
+	//	if (inFile.length()==0)
 			inFile=defaultInFile;
 	}
 	
@@ -83,7 +95,7 @@ public class Main {
 	{
 		Scanner scanner  = new Scanner(System.in);
 		
-		outFile = scanner.nextLine();
+	//	outFile = scanner.nextLine();
 		
 		if (outFile.length()==0)
 		{
@@ -106,15 +118,15 @@ public class Main {
 	 void readPopulation()
 	{
 		Scanner scanner  = new Scanner(System.in);
-		String tmp = scanner.nextLine();
+		//String tmp = scanner.nextLine();
 		
-		if (tmp.length()==0)
-		{
+		//if (tmp.length()==0)
+	//	{
 			population = defaultPopulation;
-			return;
-		}
+		//	return;
+		//}
 		
-		population = Integer.parseInt(tmp);
+	//	population = Integer.parseInt(tmp);
 		
 		
 	}
@@ -122,15 +134,15 @@ public class Main {
 	 void readGenerations()
 	{
 		Scanner scanner  = new Scanner(System.in);
-		String tmp = scanner.nextLine();
+	//	String tmp = scanner.nextLine();
 		
-		if (tmp.length()==0)
-		{
+	//	if (tmp.length()==0)
+	//	{
 			generations = defaultGenerations;
 			return;
-		}
+	//	}
 		
-		generations = Integer.parseInt(tmp);
+	//	generations = Integer.parseInt(tmp);
 	}
 	 
 	public void getParameters()
@@ -161,5 +173,24 @@ public class Main {
 		
 	}
 	
+	public static void test() throws Exception
+	{
+		System.out.println();
+		
+		ArrayList<Integer> a = new ArrayList<Integer> ();
+		a.add(4);
+		a.add(2);
+		a.add(0);
+		a.add(1);
+		a.add(0);
+		a.add(0);
+		a.add(3);
+		a.add(0);
+		Genotype gen = new Genotype(a);
+		gen.setChromosome(a);
+		System.out.println(gen.getChromosome());
+		gen.repair();
+		System.out.println(gen.getChromosome());
+	}
 
 }
