@@ -201,8 +201,8 @@ public class Genotype {
 	//repairs chromosome so that no teacher or classe have lessons more than once in a hour
 		public void repair() throws Exception{
 			repairCounter++;
-			System.out.println(repairCounter);
-			System.out.println("before: " + chromosome.toString());
+//			System.out.println(repairCounter);
+//			System.out.println("before: " + chromosome.toString());
 			for (Integer i = new Integer(0); i<chromosome.size(); i=i+Timetable.availableClassrooms) //loop which checks every hour of everyday for any problem in the genotype
 			{//System.out.println(chromosome.size());
 				for (Integer j = new Integer(i); j<i+Timetable.availableClassrooms; j++)
@@ -210,7 +210,7 @@ public class Genotype {
 					if (!check(i, j)) 
 						{
 							swap(j, findSwap(i, j));
-							System.out.println("after swap: " + chromosome.toString());
+//							System.out.println("after swap: " + chromosome.toString());
 						}//move(i, j); //if there is an conflict, resolve the conflict, move the class(j)
 				}
 			}
@@ -248,7 +248,7 @@ public class Genotype {
 			//System.out.println("to check swap: " + chromosome.get(slot1) + " and " + chromosome.get(slot2));
 			for (int x=hourslot1; x<hourslot1+Timetable.availableClassrooms; x++)  //check if inserting the class (slot2) under (slot1), would create a conflict 
 			{
-				if (slot2 == 0) break;
+				if (chromosome.get(slot2)== 0) break;
 				if (x==slot1) continue; //this is to omit the class we are trying to swawp
 				if (!checkIfBoth(chromosome.get(slot2), chromosome.get(x)))
 				{
@@ -257,9 +257,9 @@ public class Genotype {
 				}
 			}
 		
-			for (int x=hourslot2; x<hourslot1+Timetable.availableClassrooms; x++)  //check if inserting the class (slot1)  under (slot2), would create a conflict 
+			for (int x=hourslot2; x<hourslot2+Timetable.availableClassrooms; x++)  //check if inserting the class (slot1)  under (slot2), would create a conflict 
 			{
-				if (slot1 == 0) break;
+				if (chromosome.get(slot1) == 0) break;
 				if (x==slot2) continue;
 				if (!checkIfBoth(chromosome.get(slot1), chromosome.get(x)))
 				{

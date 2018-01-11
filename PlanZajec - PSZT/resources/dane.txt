@@ -1,0 +1,42 @@
+#Nauczyciele
+0 Barbara D³u¿ewska//fiz
+1 ktos ktso
+#end
+
+#Klasy
+0 1A
+1 1B
+
+#end
+
+#Przedmioty
+0 fizyka
+1 filologia
+#end
+
+#Sale
+2
+#end
+
+#Zajecia
+
+Nauczyciel = 0
+Klasa = 0
+Przedmiot = 0
+Ile = 2
+
+Nauczyciel = 0
+Klasa = 1
+Przedmiot = 0
+Ile = 2
+
+Nauczyciel = 1
+Klasa = 0
+Przedmiot = 0
+Ile = 2
+
+Nauczyciel = 1
+Klasa = 1
+Przedmiot = 0
+Ile = 2
+#end
