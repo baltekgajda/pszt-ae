@@ -1,0 +1,180 @@
+#Nauczyciele
+0 Stefan Fuksiewicz
+1 Tomasz Malka
+2 Witold Kuran
+3 Anna Koszycka
+4 Alicja Zieba
+#end
+
+#Klasy
+0 1A
+1 1B
+2 1C
+3 2A
+4 2B
+5 2C
+#end
+
+#Przedmioty
+0 Biologia
+1 Wos
+2 Fizyka
+3 Matematyka
+4 J.Polski
+#end
+
+#Sale
+6
+#end
+
+#Zajecia
+Nauczyciel = 0
+Klasa = 0
+Przedmiot = 0
+Ile = 2
+
+Nauczyciel = 1
+Klasa = 0
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 2
+Klasa = 0
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 3
+Klasa = 0
+Przedmiot = 3
+Ile = 2
+
+Nauczyciel = 4
+Klasa = 0
+Przedmiot = 4
+Ile = 2
+
+Nauczyciel = 0
+Klasa = 1
+Przedmiot = 0
+Ile = 2
+
+Nauczyciel = 1
+Klasa = 1
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 2
+Klasa = 1
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 3
+Klasa = 1
+Przedmiot = 3
+Ile = 2
+
+Nauczyciel = 4
+Klasa = 1
+Przedmiot = 4
+Ile = 2
+
+Nauczyciel = 0
+Klasa = 2
+Przedmiot = 0
+Ile = 2
+
+Nauczyciel = 1
+Klasa = 2
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 2
+Klasa = 2
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 3
+Klasa = 2
+Przedmiot = 3
+Ile = 2
+
+Nauczyciel = 4
+Klasa = 2
+Przedmiot = 4
+Ile = 2
+
+Nauczyciel = 0
+Klasa = 3
+Przedmiot = 0
+Ile = 2
+
+Nauczyciel = 1
+Klasa = 3
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 2
+Klasa = 3
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 3
+Klasa = 3
+Przedmiot = 3
+Ile = 2
+
+Nauczyciel = 4
+Klasa = 3
+Przedmiot = 4
+Ile = 2
+
+Nauczyciel = 0
+Klasa = 4
+Przedmiot = 0
+Ile = 2
+
+Nauczyciel = 1
+Klasa = 4
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 2
+Klasa = 4
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 3
+Klasa = 4
+Przedmiot = 3
+Ile = 2
+
+Nauczyciel = 4
+Klasa = 4
+Przedmiot = 4
+Ile = 2
+
+Nauczyciel = 0
+Klasa = 5
+Przedmiot = 0
+Ile = 2
+
+Nauczyciel = 1
+Klasa = 5
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 2
+Klasa = 5
+Przedmiot = 1
+Ile = 2
+
+Nauczyciel = 3
+Klasa = 5
+Przedmiot = 3
+Ile = 2
+
+Nauczyciel = 4
+Klasa = 5
+Przedmiot = 4
+Ile = 2
+#end
