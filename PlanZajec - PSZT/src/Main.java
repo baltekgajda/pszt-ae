@@ -43,13 +43,21 @@ public class Main {
 		timetable.geneticAlgorithm();
 		
 		
-		if (timetable.getBestChromosome()!=null)
+		if (timetable.getBestValidChromosome()!=null)
 		{
 			System.out.println("Najlepszy: "+timetable.getBestChromosome().toString());
+			System.out.println("Najlepszy valid: "+timetable.getBestValidChromosome().toString());
 			PdfCreator pdf = new PdfCreator(zarzadzanieDanymi);
 			pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());
 		}
-		else System.out.println("Not found");		
+		else
+		{
+			System.out.println("Not found");
+			System.out.println("Najlepszy ale nie valid: "+timetable.getBestChromosome().toString());
+			timetable.printInterference(timetable.getBestChromosome().getChromosome());
+			PdfCreator pdf = new PdfCreator(zarzadzanieDanymi);
+			pdf.genotypeToFile(timetable.getBestChromosome(), "notValid.pdf");
+		}
 		
 	}
 	

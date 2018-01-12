@@ -119,6 +119,7 @@ public class Timetable {
 		generateFirstPopulation();
 		for(int i=0;i<genNumber;i++)
 		{
+			System.out.println("gen: "+i);
 			breedPopulation();
 			selectNextGeneration();
 		}
@@ -399,4 +400,57 @@ public class Timetable {
 		
 		return true;
 	}
+	
+	public void printInterference(ArrayList<Integer> chromosome)
+	{
+	int [][] teacherArray = new int[workingDays*workingHours][teachersCount];
+	int [][] classesArray = new int[workingDays*workingHours][studentGroupsCount];
+	int i=0, j=0;
+	
+	while(i<availableTimeSlots)
+	{
+		if(chromosome.get(i)==0)
+		{
+			if(++i%availableClassrooms==0)
+				j++;
+			continue;
+		}
+		
+		int teacherId=classes.get(chromosome.get(i)-1).getNauczyciel().getId();
+		int classId=classes.get(chromosome.get(i)-1).getKlasa().getId();
+	
+		teacherArray[j][teacherId]++;
+		classesArray[j][classId]++;
+		
+		
+		if(++i%availableClassrooms==0)
+			j++;
+	}
+	String s = "";
+	System.out.println("Teachers[day*hours][teacher]");
+	for (i=0; i<workingDays*workingHours; i++)
+	{
+		for (j=0; j<teachersCount; j++)
+		{
+				s = s+teacherArray[i][j]+ " ";
+		}
+		System.out.println(s);
+		s="";
+	}
+	s="";
+	System.out.println("Classes[day*hours][class]");
+	for (i=0; i<workingDays*workingHours; i++)
+	{
+		for (j=0; j<studentGroupsCount; j++)
+		{
+				s=s+classesArray[i][j]+ " ";
+		}
+		System.out.println(s);
+		s="";
+	}
+	
+
+				
+	
+}
 }
