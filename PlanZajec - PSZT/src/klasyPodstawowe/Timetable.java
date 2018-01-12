@@ -11,12 +11,12 @@ import inOut.ZarzadzanieDanymi;
 public class Timetable {
 
 	public static int workingDays = 5;
-	public static int workingHours =10;
+	public static int workingHours =5;
 	public static int availableClassrooms=1;
 	static int availableTimeSlots = 4;
 	static int genNumber = 100;					//to tez nie wiem czy static 
 	static int populationSize = 100;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
-	static double fitnessRate = 0.7;
+	static double fitnessRate = 0.8;
 	ArrayList <Genotype> genotypes;
 	static ArrayList <Zajecia> classes;			//wszystkie zajecia
 	int teachersCount;
@@ -245,7 +245,7 @@ public class Timetable {
 			while(genotypes.size()-populationSize==2*i)
 			{
 				Genotype gen = new Genotype(genotypes.get(a).getChromosome(),genotypes.get(b).getChromosome());
-				gen.repair();
+				//gen.repair();
 				if(checkIfValid(gen.getChromosome()))
 				{
 					evaluateFitnessVal(gen);

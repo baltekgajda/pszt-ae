@@ -17,7 +17,7 @@ public class Main {
 	 */
 	
 	
-	static String defaultInFile = "PlanZajec - PSZT/resources/dane2.txt";
+	static String defaultInFile = "PlanZajec - PSZT/src/plikiUzytkowe/dane4.txt";
 	static String defaultOutFile = "out.pdf";
 	static int defaultPopulation=1000;
 	static int defaultGenerations=1000;
@@ -42,7 +42,6 @@ public class Main {
 		Timetable timetable = new Timetable(zarzadzanieDanymi);
 		Timetable.setPopulationSize(m.getPopulation());
 		Timetable.setGenNumber(m.getGenerations());
-		System.out.println(Timetable.getClasses().toString());
 		
 
 		//test(8, Timetable.workingDays*Timetable.workingHours*Timetable.availableClassrooms, false);
@@ -50,12 +49,12 @@ public class Main {
 		timetable.geneticAlgorithm();
 		
 		
-		if (timetable.getBestChromosome()!=null)
+		if (timetable.getBestValidChromosome()!=null)
 		{
-			System.out.println("Najlepszy: "+timetable.getBestChromosome().toString());
+			System.out.println("Najlepszy: "+timetable.getBestValidChromosome().toString());
 			PdfCreator pdf = new PdfCreator(zarzadzanieDanymi);
 			//pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());
-			pdf.genotypeToFile(timetable.getBestChromosome(), m.getOutFile());
+			pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());
 		}
 		else System.out.println("Not found");		
 		
