@@ -1,13 +1,13 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
+import java.util.Scanner;
 
+import Evolution.Genotype;
+import PdfVis.PdfCreator;
 import inOut.ZarzadzanieDanymi;
 import klasyPodstawowe.Timetable;
-import PdfVis.PdfCreator;
-
-import java.util.Collections;
-import java.util.List;
-import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Main {
 
@@ -16,7 +16,8 @@ public class Main {
 	 * @throws IOException 
 	 */
 	
-	static String defaultInFile = "D:/git/pszt-ae/PlanZajec - PSZT/src/plikiUzytkowe/dane3.txt";
+	
+	static String defaultInFile = "PlanZajec - PSZT/src/plikiUzytkowe/dane4.txt";
 	static String defaultOutFile = "out.pdf";
 	static int defaultPopulation=1000;
 	static int defaultGenerations=1000;
@@ -26,7 +27,8 @@ public class Main {
 	private int population;
 	private int generations;
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
+
 		
 		Main m = new Main();
 		m.getParameters();
@@ -35,28 +37,32 @@ public class Main {
 	//	URL url = getClass().getResource("dane.txt");
 		zarzadzanieDanymi.setFilePath(m.getInFile());
 		zarzadzanieDanymi.loadData();
-		
+//		Timetable.setWorkingTime(3, 2);
 		Timetable.setAvailableClassrooms(zarzadzanieDanymi.getSalaAmount());
 		Timetable timetable = new Timetable(zarzadzanieDanymi);
 		Timetable.setPopulationSize(m.getPopulation());
 		Timetable.setGenNumber(m.getGenerations());
+		
+
+		//test(8, Timetable.workingDays*Timetable.workingHours*Timetable.availableClassrooms, false);
+		//return;
 		timetable.geneticAlgorithm();
 		
 		
 		if (timetable.getBestValidChromosome()!=null)
 		{
+
 			System.out.println("Najlepszy: "+timetable.getBestChromosome().toString());
 			System.out.println("Najlepszy valid: "+timetable.getBestValidChromosome().toString());
+
 			PdfCreator pdf = new PdfCreator(zarzadzanieDanymi);
+			//pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());
 			pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());
 		}
 		else
 		{
 			System.out.println("Not found");
-			System.out.println("Najlepszy ale nie valid: "+timetable.getBestChromosome().toString());
-			timetable.printInterference(timetable.getBestChromosome().getChromosome());
-			PdfCreator pdf = new PdfCreator(zarzadzanieDanymi);
-			pdf.genotypeToFile(timetable.getBestChromosome(), "notValid.pdf");
+
 		}
 		
 	}
@@ -168,5 +174,43 @@ public class Main {
 		
 	}
 	
+	public static void test(int classesNo, int size, boolean random) throws Exception
+	{
+		System.out.println();
+		
+		
+		ArrayList<Integer> chromosome = new ArrayList<Integer>();
+		if (random) {
+			for (int i = 1; i <= classesNo; i++)
+				chromosome.add(i);
+			for (int i = classesNo + 1; i <= size; i++)
+				chromosome.add(0);
+			Random generator = new Random();
+			for (int i = chromosome.size() - 1; i >= 1; i--)
+				Collections.swap(chromosome, generator.nextInt(i + 1), i);
+		}
+		
+		else
+		{
+			chromosome.add(0);
+			chromosome.add(6);
+			chromosome.add(0);
+			chromosome.add(0);
+			chromosome.add(3);
+			chromosome.add(5);
+			chromosome.add(8);
+			chromosome.add(0);
+			chromosome.add(7);
+			chromosome.add(2);
+			chromosome.add(1);
+			chromosome.add(4);
+			
+		}
+		Genotype gen = new Genotype(chromosome);
+		gen.setChromosome(chromosome);
+		System.out.println(gen.getChromosome());
+		gen.repair();
+		System.out.println(gen.getChromosome());
+	}
 
 }

@@ -240,11 +240,14 @@ public class ZarzadzanieDanymi {
 				zajecia.setPrzedmiot(arrayPrzedmiot.get(scanner.nextInt()));
 				
 				if (!scanner.next().equals("Ile")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator Ile");
-				if (!scanner.next().equals("=")) throw new ExceptionBadDataStructure("Powinien byæ identyfikator =, Line: "+pomS+" Id: "+i);
+				if (!scanner.next().equals("=")) throw new ExceptionBadDataStructure("Powiinien byæ identyfikator =, Line: "+pomS+" Id: "+i);
 				int count = scanner.nextInt();
 				for(int j=0;j<count;j++)
-					arrayZajecia.add(zajecia);
-				i++;
+					{
+						arrayZajecia.add(zajecia);
+						i++;
+					}
+					
 			};
 	}
 	
