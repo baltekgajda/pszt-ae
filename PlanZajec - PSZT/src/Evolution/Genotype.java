@@ -233,22 +233,37 @@ public class Genotype {
 		//returns the coordinates found for conflictClass to swap
 		private int findSwap(int hourSlot, int conflictClass) throws Exception
 		{
-			for (Integer i = new Integer(0); i<chromosome.size(); i=i+Timetable.availableClassrooms)
+			int slotsPerDay=Timetable.availableClassrooms*Timetable.workingHours;
+			int k=0,i=0;
+
+			while(k<slotsPerDay)
 			{
 				if (i==hourSlot)//no reason to check the hourSlot of the conflictClass from which we are taking it
+				{
+					i+=slotsPerDay;
+					if(i>=timeSlots)
 					{
-						//i=+Timetable.availableClassrooms; // problem with continue, it omits the increase in (i)
-						continue; 
+						k+=Timetable.availableClassrooms;
+						i=k;
 					}
+					//i=+Timetable.availableClassrooms; // problem with continue, it omits the increase in (i)
+					continue; 
+				}
 				Integer j = new Integer(i);
 				for (; j<i+Timetable.availableClassrooms; j++)
 				{
 					if (canSwap(conflictClass, hourSlot, j, i)) return j; //lets see is it possible to swap the class in the (conflictClass) slot for the class in the (j) slot
 				}
+				i+=slotsPerDay;
+				if(i>=timeSlots)
+				{
+					k+=Timetable.availableClassrooms;
+					i=k;
+				}
 			}
 			throw new Exception("impossible to fit all the classes without conflict, \nhourslot: " + hourSlot + "\nconflictClass: "
-			+ conflictClass + "\nrepair counter: " + repairCounter + chromosome.toString());
-			//return 0;
+					+ conflictClass + "\nrepair counter: " + repairCounter + chromosome.toString());
+					//return 0;
 		}
 		
 		private void swap(int slot1, int slot2)

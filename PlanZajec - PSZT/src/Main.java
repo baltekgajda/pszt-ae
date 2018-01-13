@@ -17,7 +17,7 @@ public class Main {
 	 */
 	
 	
-	static String defaultInFile = "PlanZajec - PSZT/resources/dane2.txt";
+	static String defaultInFile = "C:\\Users\\bartl\\git\\pszty\\PlanZajec - PSZT\\resources\\dane2.txt";
 	static String defaultOutFile = "out.pdf";
 	static int defaultPopulation=1000;
 	static int defaultGenerations=1000;

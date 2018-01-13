@@ -16,7 +16,7 @@ public class Timetable {
 	static int availableTimeSlots = 4;
 	static int genNumber = 100;					//to tez nie wiem czy static 
 	static int populationSize = 100;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
-	static double fitnessRate = 0.55;
+	static double fitnessRate = 0.7;
 	ArrayList <Genotype> genotypes;
 	static ArrayList <Zajecia> classes;			//wszystkie zajecia
 	int teachersCount;
