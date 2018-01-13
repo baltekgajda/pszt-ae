@@ -14,11 +14,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.itextpdf.kernel.geom.PageSize;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.AreaBreakType;
 import com.itextpdf.test.annotations.WrapToTest;
 
 public class PdfCreator {
@@ -43,7 +46,10 @@ public class PdfCreator {
 		
 		PdfWriter writer = new PdfWriter(filename); //init pdf writter
 		PdfDocument pdf = new PdfDocument(writer); //init pdf document
+		pdf.setDefaultPageSize(PageSize.A4.rotate());
 		Document document = new Document(pdf); //init document
+		
+		
 		
 		HashMap<Integer,ClassTable> map = transformGenotype(gen);
 		Table table;
@@ -51,6 +57,7 @@ public class PdfCreator {
 		
 		for (ClassTable ct:map.values()) //iterate through ClassTables for all student groups
 		{
+			
 			document.add(new Paragraph(ct.k.getNazwa())); //add student group name
 			
 			table = new Table(Timetable.workingDays+1);
@@ -81,6 +88,7 @@ public class PdfCreator {
 				}
 			}
 			document.add(table);
+			document.add(new AreaBreak(AreaBreakType.NEXT_PAGE));
 		}
 		
 		document.close();
