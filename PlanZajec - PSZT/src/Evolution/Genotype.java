@@ -11,10 +11,23 @@ public class Genotype {
 
 	static int timeSlots=60;		//rozmiar chromosome
 	static int classesNo=0;
-	static double mutationRate=0.2;
+	static double mutationRate=0.05;
 	static int repairCounter = 0;
 	ArrayList<Integer> chromosome;		//czy zamienic na zwykla []?
-	double fitnessVal=0;					//czy zamienic na inna niz int
+	double fitnessVal=0;				//czy zamienic na inna niz int
+	int generation = 0;
+	
+	
+	public void setGeneration(int gen)
+	{
+		generation = gen;
+	}
+	
+	public int getGeneration()
+	{
+		return generation;
+	}
+	
 	
 	
 	public void setFitnessVal(double val)

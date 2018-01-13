@@ -17,7 +17,7 @@ public class Main {
 	 */
 	
 	
-	static String defaultInFile = "PlanZajec - PSZT/src/plikiUzytkowe/dane4.txt";
+	static String defaultInFile = "PlanZajec - PSZT/resources/dane2.txt";
 	static String defaultOutFile = "out.pdf";
 	static int defaultPopulation=1000;
 	static int defaultGenerations=1000;
@@ -54,6 +54,7 @@ public class Main {
 
 			System.out.println("Najlepszy: "+timetable.getBestChromosome().toString());
 			System.out.println("Najlepszy valid: "+timetable.getBestValidChromosome().toString());
+			System.out.println("Generation: " + timetable.getBestValidChromosome().getGeneration());
 
 			PdfCreator pdf = new PdfCreator(zarzadzanieDanymi);
 			//pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());

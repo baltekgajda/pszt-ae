@@ -11,12 +11,12 @@ import inOut.ZarzadzanieDanymi;
 public class Timetable {
 
 	public static int workingDays = 5;
-	public static int workingHours =5;
+	public static int workingHours =6;
 	public static int availableClassrooms=1;
 	static int availableTimeSlots = 4;
 	static int genNumber = 100;					//to tez nie wiem czy static 
 	static int populationSize = 100;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
-	static double fitnessRate = 0.8;
+	static double fitnessRate = 0.55;
 	ArrayList <Genotype> genotypes;
 	static ArrayList <Zajecia> classes;			//wszystkie zajecia
 	int teachersCount;
@@ -105,6 +105,7 @@ public class Timetable {
 			{
 				evaluateFitnessVal(gen);
 				genotypes.add(gen);
+				gen.setGeneration(0);
 				//System.out.println(getInterferenceNumber(gen.getChromosome()));
 			}
 			else
@@ -122,7 +123,7 @@ public class Timetable {
 		for(int i=0;i<genNumber;i++)
 		{
 			System.out.println("gen: "+i);
-			breedPopulation();
+			breedPopulation(i+1);
 			selectNextGeneration();
 		}
 		/*for(int i=0;i<genotypes.size();i++)
@@ -234,7 +235,7 @@ public class Timetable {
 	}
 	
 	//reprodukuj populacje
-	private void breedPopulation() throws Exception {
+	private void breedPopulation(int generation) throws Exception {
 		
 		//choose 2 parents using roulette selection method
 		int a,b;
@@ -246,10 +247,13 @@ public class Timetable {
 			while(genotypes.size()-populationSize==2*i)
 			{
 				Genotype gen = new Genotype(genotypes.get(a).getChromosome(),genotypes.get(b).getChromosome());
-				//gen.repair();
+				if (!orginalCheckifValid(gen.getChromosome()))
+					gen.repair();
 				if(checkIfValid(gen.getChromosome()))
 				{
 					evaluateFitnessVal(gen);
+					//System.out.println(gen.getFitnessVal());
+					gen.setGeneration(generation);
 					//System.out.println("DZIECI:  "+gen.toString());
 					genotypes.add(gen);
 				}
@@ -259,9 +263,13 @@ public class Timetable {
 			while(genotypes.size()-populationSize==2*i+1)
 			{
 				Genotype gen = new Genotype(genotypes.get(b).getChromosome(),genotypes.get(a).getChromosome());
+				if (!orginalCheckifValid(gen.getChromosome()))
+					gen.repair();
 				if(checkIfValid(gen.getChromosome()))
 				{
 					evaluateFitnessVal(gen);
+					//System.out.println(gen.getFitnessVal());
+					gen.setGeneration(generation);
 					genotypes.add(gen);
 				}
 				else
