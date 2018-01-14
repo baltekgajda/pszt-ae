@@ -1,12 +1,12 @@
 package PdfVis;
 
 import Evolution.Genotype;
-import inOut.ZarzadzanieDanymi;
-import klasyPodstawowe.Klasa;
-import klasyPodstawowe.Nauczyciel;
-import klasyPodstawowe.Przedmiot;
+import inOut.LoadData;
+import klasyPodstawowe.Clas;
+import klasyPodstawowe.Teacher;
+import klasyPodstawowe.Subject;
 import klasyPodstawowe.Timetable;
-import klasyPodstawowe.Zajecia;
+import klasyPodstawowe.Classes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,10 +27,10 @@ import com.itextpdf.test.annotations.WrapToTest;
 public class PdfCreator {
 	
 
-	private ZarzadzanieDanymi data;
+	private LoadData data;
 	String[] start_time = {"8.15","9.15","10.15","11.15","12.15","13.15","14.15","15.15","16.15","17.15","18.15","19.15"};//working hours start time
 	String[] days = {"Pon","Wt","Sr","Czw","Pt","S","N"};//working days names
-	public PdfCreator(ZarzadzanieDanymi d)
+	public PdfCreator(LoadData d)
 	{
 		data = d;
 	}
@@ -80,8 +80,8 @@ public class PdfCreator {
 					else //occupied slot
 					{
 						int room = ct.table[j][i].room;
-						Zajecia z = getZajecie(ct.table[j][i].id);
-						Nauczyciel n = z.getNauczyciel();
+						Classes z = getZajecie(ct.table[j][i].id);
+						Teacher n = z.getNauczyciel();
 						String text = z.getPrzedmiot().getNazwa() + "\n" + n.getImie().charAt(0) +"." + n.getNazwisko() + "\nsala " + room;
 						table.addCell(text);
 					}
@@ -106,12 +106,12 @@ public class PdfCreator {
 		int days = Timetable.workingDays;
 		int hours = Timetable.workingHours;
 		int rooms = Timetable.availableClassrooms;
-		ArrayList<Klasa> classess = data.getArrayKlasa();//list of all classes
+		ArrayList<Clas> classess = data.getArrayKlasa();//list of all classes
 		ArrayList<Integer> chrom = gen.getChromosome();
 		
 		HashMap<Integer,ClassTable> tableMap = new HashMap<Integer,ClassTable>();
 		
-		for (Klasa k:classess)
+		for (Clas k:classess)
 		{
 			Integer id = k.getId();
 			tableMap.put(id, new ClassTable(k));
@@ -129,11 +129,11 @@ public class PdfCreator {
 			if (id!=0)//if timeslot is not empty
 			{
 								
-				Zajecia z =getZajecie(id);
+				Classes z =getZajecie(id);
 				
 				if (z==null)
 				{
-					for (Zajecia zaj:data.getArrayZajecia())
+					for (Classes zaj:data.getArrayZajecia())
 					{
 						if (zaj.getId()==id)
 							z=zaj;
@@ -170,13 +170,13 @@ public class PdfCreator {
 	 * @param id
 	 * @return
 	 */
-	private Zajecia getZajecie(int id)
+	private Classes getZajecie(int id)
 	{
-		Zajecia z = data.getArrayZajecia().get(id-1);
+		Classes z = data.getArrayZajecia().get(id-1);
 		
 /*		if (z==null || z.getId()!=id)
 		{
-			for (Zajecia zaj:data.getArrayZajecia())
+			for (Classes zaj:data.getArrayZajecia())
 			{
 				if (zaj.getId()==id)
 					z=zaj;

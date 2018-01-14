@@ -22,7 +22,7 @@ public class Slot {
 		zajecia.add(z);
 	}
 	
-	public void add(Zajecia z)
+	public void add(Classes z)
 	{
 		zajecia.add(z.getId());
 	}

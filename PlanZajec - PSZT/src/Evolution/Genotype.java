@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.Random;
 
 import klasyPodstawowe.Timetable;
-import klasyPodstawowe.Zajecia;
 
 public class Genotype {
 
@@ -298,27 +297,8 @@ public class Genotype {
 //			System.out.println("true");
 			return true;
 		}
-		//move the classes to a hour in which there will be no conflict
-		private void move(int hourSlot, int classToMove) {
-			for (int i = 0; i<chromosome.size();  i++)
-			{
-				if (i==hourSlot) continue; //this is to omit the hour from which the class is taken to be moved
-				if (!check(i, classToMove)) continue; //if placing the class in a hourslot creates a conflict, continue
-				Integer aux = new Integer(checkIfPlace(i)); //find empty classroom for the class
-				if (aux==null) continue; //if there is no empty classroom, continue
-				
-				moveTo(classToMove, i); //we found empty classroom, so now lets move the class
-				break;
-			}
-			
-		}
 
-		//moves the class to the designated place in the chromosome
-		private void moveTo(int classToMove, int where) {
-			chromosome.set(where, chromosome.get(classToMove)); //move the chromosome
-			chromosome.set(classToMove, 0); //set its old position to zero(empty)
-			
-		}
+
 		//returns the position in chromosome which is not taken by any class(empty classroom)
 		private Integer checkIfPlace(int hourSlot) {
 			for(int i=0; i<Timetable.availableClassrooms; i++)

@@ -1,6 +1,6 @@
 package PdfVis;
 
-import klasyPodstawowe.Klasa;
+import klasyPodstawowe.Clas;
 import klasyPodstawowe.Timetable;
 
 /**
@@ -11,14 +11,14 @@ import klasyPodstawowe.Timetable;
 public class ClassTable {
 	
 	
-	Klasa k;
+	Clas k;
 	Lesson [][] table;//day, hour
 	
 	/**
 	 * Class constructor
 	 * @param k specified group of students
 	 */
-	public ClassTable(Klasa k)
+	public ClassTable(Clas k)
 	{
 		this.k=k;
 		table = new Lesson[Timetable.workingDays][Timetable.workingHours];

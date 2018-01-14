@@ -7,12 +7,12 @@ package klasyPodstawowe;
  * @author Maciek
  *
  */
-public class Klasa {
+public class Clas {
 	
 	Integer id;
 	String nazwa = new String();
 	
-	public Klasa(Integer id, String nazwa) 
+	public Clas(Integer id, String nazwa) 
 	{
 		setId(id);
 		setNazwa(nazwa);

@@ -5,12 +5,12 @@ package klasyPodstawowe;
 
 /**
  * @author Maciek
- * Klasa przechowuje informacje o salach
+ * Clas przechowuje informacje o salach
  */
-public class Sala {
+public class Classroom {
 	Integer id;
 	
-	public Sala(Integer id) {
+	public Classroom(Integer id) {
 		super();
 		this.id = id;
 	}

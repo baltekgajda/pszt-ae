@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import Evolution.Genotype;
 import PdfVis.PdfCreator;
-import inOut.ZarzadzanieDanymi;
+import inOut.LoadData;
 import klasyPodstawowe.Timetable;
 
 public class Main {
@@ -33,13 +33,13 @@ public class Main {
 		Main m = new Main();
 		m.getParameters();
 		
-		ZarzadzanieDanymi zarzadzanieDanymi = new ZarzadzanieDanymi();
+		LoadData loadData = new LoadData();
 	//	URL url = getClass().getResource("dane.txt");
-		zarzadzanieDanymi.setFilePath(m.getInFile());
-		zarzadzanieDanymi.loadData();
+		loadData.setFilePath(m.getInFile());
+		loadData.loadData();
 //		Timetable.setWorkingTime(3, 2);
-		Timetable.setAvailableClassrooms(zarzadzanieDanymi.getSalaAmount());
-		Timetable timetable = new Timetable(zarzadzanieDanymi);
+		Timetable.setAvailableClassrooms(loadData.getSalaAmount());
+		Timetable timetable = new Timetable(loadData);
 		Timetable.setPopulationSize(m.getPopulation());
 		Timetable.setGenNumber(m.getGenerations());
 		
@@ -56,7 +56,7 @@ public class Main {
 			System.out.println("Najlepszy valid: "+timetable.getBestValidChromosome().toString());
 			System.out.println("Generation: " + timetable.getBestValidChromosome().getGeneration());
 
-			PdfCreator pdf = new PdfCreator(zarzadzanieDanymi);
+			PdfCreator pdf = new PdfCreator(loadData);
 			//pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());
 			pdf.genotypeToFile(timetable.getBestValidChromosome(), m.getOutFile());
 		}

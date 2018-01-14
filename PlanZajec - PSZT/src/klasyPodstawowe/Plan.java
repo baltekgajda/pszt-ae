@@ -16,8 +16,8 @@ public class Plan {
 	
 	public Plan()
 	{
-		timetable = new HashMap <Integer, Slot>(); //poprawne sloty (dobry dzien godzina klasa)
-		illegal = new HashMap <Integer, Slot>(); //niepoprawne sloty (dzien, godzina lub klasa poza zakresem)
+		timetable = new HashMap <Integer, Slot>(); //poprawne sloty (dobry dzien godzina clas)
+		illegal = new HashMap <Integer, Slot>(); //niepoprawne sloty (dzien, godzina lub clas poza zakresem)
 	}
 	
 	
@@ -58,7 +58,7 @@ public class Plan {
 		}
 	}
 	
-	private boolean isValidSlot(int d, int h, int r) //czy poprawne dzien godzina klasa
+	private boolean isValidSlot(int d, int h, int r) //czy poprawne dzien godzina clas
 	{
 		
 		if (d<1 || d>availableDays) return false;

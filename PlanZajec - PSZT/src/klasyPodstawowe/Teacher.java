@@ -5,15 +5,15 @@ package klasyPodstawowe;
 
 /**
  * @author Maciek
- * klasa zawiera wszystkie informacje na temat nauczyciela
+ * clas zawiera wszystkie informacje na temat nauczyciela
  */
-public class Nauczyciel {
+public class Teacher {
 
 	Integer id;
 	String imie;
 	String nazwisko;
 	
-	public Nauczyciel(Integer id, String imie, String nazwisko)
+	public Teacher(Integer id, String imie, String nazwisko)
 	{
 		setId(id);
 		setImie(imie);

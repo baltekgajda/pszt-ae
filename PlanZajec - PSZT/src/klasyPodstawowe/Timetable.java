@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Random;
 
 import Evolution.Genotype;
-import inOut.ZarzadzanieDanymi;
+import inOut.LoadData;
 
 public class Timetable {
 
@@ -18,7 +18,7 @@ public class Timetable {
 	static int populationSize = 100;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
 	static double fitnessRate = 0.7;
 	ArrayList <Genotype> genotypes;
-	static ArrayList <Zajecia> classes;			//wszystkie zajecia
+	static ArrayList <Classes> classes;			//wszystkie zajecia
 	int teachersCount;
 	int classesCount;
 	int studentGroupsCount;
@@ -27,7 +27,7 @@ public class Timetable {
 	 * Class constructor
 	 * @param data
 	 */
-	public Timetable(ZarzadzanieDanymi data)
+	public Timetable(LoadData data)
 	{
 		genotypes=new ArrayList<Genotype>();
 		classes = data.getArrayZajecia();
@@ -177,7 +177,7 @@ public class Timetable {
 		
 		int i=0,j=0,k=0;			//j okresla ktora godzina danego dnia od 0 do (workingHours-1), k to dzien tygodnia
 		int groupId;
-		//pierwsze to ktory dzien, drugie to klasa
+		//pierwsze to ktory dzien, drugie to clas
 		int [][] classArray = new int[workingDays][studentGroupsCount];
 		
 		while(i<availableTimeSlots)
@@ -464,12 +464,12 @@ public class Timetable {
 	
 }
 
-	static public Zajecia returnClass(int classNumber)
+	static public Classes returnClass(int classNumber)
 	{
 		return classes.get(classNumber-1);
 	}
 
-	public static ArrayList<Zajecia> getClasses() {
+	public static ArrayList<Classes> getClasses() {
 		return classes;
 	}
 

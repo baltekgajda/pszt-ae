@@ -7,11 +7,11 @@ package klasyPodstawowe;
  * @author Maciek
  *
  */
-public class Przedmiot {
+public class Subject {
 	Integer id;
 	String nazwa;
 	
-	public Przedmiot(Integer id, String nazwa) {
+	public Subject(Integer id, String nazwa) {
 		super();
 		this.id = id;
 		this.nazwa = nazwa;
