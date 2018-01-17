@@ -3,14 +3,11 @@ package PdfVis;
 import Evolution.Genotype;
 import components.Course;
 import components.StudentGroup;
-import components.Subject;
 import components.Teacher;
 import components.Timetable;
 import inOut.LoadData;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,7 +19,6 @@ import com.itextpdf.layout.element.AreaBreak;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.AreaBreakType;
-import com.itextpdf.test.annotations.WrapToTest;
 
 public class PdfCreator {
 	

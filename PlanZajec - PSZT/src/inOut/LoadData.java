@@ -126,7 +126,6 @@ public class LoadData {
 	public void loadData() throws IOException {
 		FileReader fileReader = new FileReader(filePath);
 		Scanner scanner = new Scanner(fileReader);
-		System.out.println("DANEEEE");
 		try {
 			while (scanner.hasNext()) {
 				switch (scanner.next()) {
