@@ -1,15 +1,11 @@
-/**
- * 
- */
-package klasyPodstawowe;
+package components;
 
 /**
- * @author Maciek
- * Clas przechowuje informacje o salach
+ * Class containing information about classrooms
  */
 public class Classroom {
 	Integer id;
-	
+
 	public Classroom(Integer id) {
 		super();
 		this.id = id;
@@ -22,6 +18,5 @@ public class Classroom {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	
+
 }

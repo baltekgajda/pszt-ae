@@ -1,4 +1,4 @@
-#Nauczyciele
+#Teachers
 0 Stefan Fuksiewicz
 1 Tomasz Malka
 2 Witold Kuran
@@ -6,7 +6,7 @@
 4 Alicja Zieba
 #end
 
-#Klasy
+#StudentsGroups
 0 1A
 1 1B
 2 1C
@@ -15,166 +15,166 @@
 5 2C
 #end
 
-#Przedmioty
-0 Biologia
-1 Wos
-2 Fizyka
-3 Matematyka
-4 J.Polski
+#Subjects
+0 Biology
+1 Physics
+2 Mathematics
+3 English
+4 French
 #end
 
-#Sale
+#Classrooms
 6
 #end
 
-#Zajecia
-Nauczyciel = 0
-Klasa = 0
-Przedmiot = 0
-Ile = 2
+#Courses
+Teacher = 0
+StudentGroup = 0
+Subject = 0
+Multiplicity = 2
 
-Nauczyciel = 1
-Klasa = 0
-Przedmiot = 1
-Ile = 2
+Teacher = 1
+StudentGroup = 0
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 2
-Klasa = 0
-Przedmiot = 1
-Ile = 2
+Teacher = 2
+StudentGroup = 0
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 3
-Klasa = 0
-Przedmiot = 3
-Ile = 2
+Teacher = 3
+StudentGroup = 0
+Subject = 3
+Multiplicity = 2
 
-Nauczyciel = 4
-Klasa = 0
-Przedmiot = 4
-Ile = 2
+Teacher = 4
+StudentGroup = 0
+Subject = 4
+Multiplicity = 2
 
-Nauczyciel = 0
-Klasa = 1
-Przedmiot = 0
-Ile = 2
+Teacher = 0
+StudentGroup = 1
+Subject = 0
+Multiplicity = 2
 
-Nauczyciel = 1
-Klasa = 1
-Przedmiot = 1
-Ile = 2
+Teacher = 1
+StudentGroup = 1
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 2
-Klasa = 1
-Przedmiot = 1
-Ile = 2
+Teacher = 2
+StudentGroup = 1
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 3
-Klasa = 1
-Przedmiot = 3
-Ile = 2
+Teacher = 3
+StudentGroup = 1
+Subject = 3
+Multiplicity = 2
 
-Nauczyciel = 4
-Klasa = 1
-Przedmiot = 4
-Ile = 2
+Teacher = 4
+StudentGroup = 1
+Subject = 4
+Multiplicity = 2
 
-Nauczyciel = 0
-Klasa = 2
-Przedmiot = 0
-Ile = 2
+Teacher = 0
+StudentGroup = 2
+Subject = 0
+Multiplicity = 2
 
-Nauczyciel = 1
-Klasa = 2
-Przedmiot = 1
-Ile = 2
+Teacher = 1
+StudentGroup = 2
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 2
-Klasa = 2
-Przedmiot = 1
-Ile = 2
+Teacher = 2
+StudentGroup = 2
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 3
-Klasa = 2
-Przedmiot = 3
-Ile = 2
+Teacher = 3
+StudentGroup = 2
+Subject = 3
+Multiplicity = 2
 
-Nauczyciel = 4
-Klasa = 2
-Przedmiot = 4
-Ile = 2
+Teacher = 4
+StudentGroup = 2
+Subject = 4
+Multiplicity = 2
 
-Nauczyciel = 0
-Klasa = 3
-Przedmiot = 0
-Ile = 2
+Teacher = 0
+StudentGroup = 3
+Subject = 0
+Multiplicity = 2
 
-Nauczyciel = 1
-Klasa = 3
-Przedmiot = 1
-Ile = 2
+Teacher = 1
+StudentGroup = 3
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 2
-Klasa = 3
-Przedmiot = 1
-Ile = 2
+Teacher = 2
+StudentGroup = 3
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 3
-Klasa = 3
-Przedmiot = 3
-Ile = 2
+Teacher = 3
+StudentGroup = 3
+Subject = 3
+Multiplicity = 2
 
-Nauczyciel = 4
-Klasa = 3
-Przedmiot = 4
-Ile = 2
+Teacher = 4
+StudentGroup = 3
+Subject = 4
+Multiplicity = 2
 
-Nauczyciel = 0
-Klasa = 4
-Przedmiot = 0
-Ile = 2
+Teacher = 0
+StudentGroup = 4
+Subject = 0
+Multiplicity = 2
 
-Nauczyciel = 1
-Klasa = 4
-Przedmiot = 1
-Ile = 2
+Teacher = 1
+StudentGroup = 4
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 2
-Klasa = 4
-Przedmiot = 1
-Ile = 2
+Teacher = 2
+StudentGroup = 4
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 3
-Klasa = 4
-Przedmiot = 3
-Ile = 2
+Teacher = 3
+StudentGroup = 4
+Subject = 3
+Multiplicity = 2
 
-Nauczyciel = 4
-Klasa = 4
-Przedmiot = 4
-Ile = 2
+Teacher = 4
+StudentGroup = 4
+Subject = 4
+Multiplicity = 2
 
-Nauczyciel = 0
-Klasa = 5
-Przedmiot = 0
-Ile = 2
+Teacher = 0
+StudentGroup = 5
+Subject = 0
+Multiplicity = 2
 
-Nauczyciel = 1
-Klasa = 5
-Przedmiot = 1
-Ile = 2
+Teacher = 1
+StudentGroup = 5
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 2
-Klasa = 5
-Przedmiot = 1
-Ile = 2
+Teacher = 2
+StudentGroup = 5
+Subject = 1
+Multiplicity = 2
 
-Nauczyciel = 3
-Klasa = 5
-Przedmiot = 3
-Ile = 2
+Teacher = 3
+StudentGroup = 5
+Subject = 3
+Multiplicity = 2
 
-Nauczyciel = 4
-Klasa = 5
-Przedmiot = 4
-Ile = 2
+Teacher = 4
+StudentGroup = 5
+Subject = 4
+Multiplicity = 2
 #end

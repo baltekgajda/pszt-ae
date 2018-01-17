@@ -1,10 +1,9 @@
 package Evolution;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
-import klasyPodstawowe.Timetable;
+import components.Timetable;
 
 public class Genotype {
 
@@ -332,10 +331,10 @@ public class Genotype {
 		{
 			if (class1 == 0 || class2 == 0) return true;
 			//System.out.println("CHECKING:" + class1.getId() + " vs " + class2.getId());
-			if (Timetable.returnClass(class1).getNauczyciel().equals(Timetable.returnClass(class2).getNauczyciel())) 
+			if (Timetable.returnClass(class1).getTeacher().equals(Timetable.returnClass(class2).getTeacher())) 
 					return false;
 
-			if (Timetable.returnClass(class1).getKlasa().equals(Timetable.returnClass(class2).getKlasa()))
+			if (Timetable.returnClass(class1).getStudentGroup().equals(Timetable.returnClass(class2).getStudentGroup()))
 					return false;
 
 			return true;

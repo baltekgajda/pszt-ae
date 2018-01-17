@@ -1,4 +1,4 @@
-package klasyPodstawowe;
+package components;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,19 +8,24 @@ import java.util.Random;
 import Evolution.Genotype;
 import inOut.LoadData;
 
+
+/**
+ * Class that holds all information about created timetable,
+ * is used to perform genetic algorithm
+ */
 public class Timetable {
 
 	public static int workingDays = 5;
 	public static int workingHours =6;
 	public static int availableClassrooms=1;
 	static int availableTimeSlots = 4;
-	static int genNumber = 100;					//to tez nie wiem czy static 
-	static int populationSize = 100;					//moze nie static? do przemyslenia	na pewno musi byc parzyste
-	static double fitnessRate = 0.7;
+	static int genNumber = 100;				
+	static int populationSize = 100;		
+	static double fitnessRate = 0.7;	
 	ArrayList <Genotype> genotypes;
-	static ArrayList <Classes> classes;			//wszystkie zajecia
+	static ArrayList <Course> courses;			//all courses in the timetable
 	int teachersCount;
-	int classesCount;
+	int coursesCount;
 	int studentGroupsCount;
 	
 	/**
@@ -30,11 +35,11 @@ public class Timetable {
 	public Timetable(LoadData data)
 	{
 		genotypes=new ArrayList<Genotype>();
-		classes = data.getArrayZajecia();
-		teachersCount=data.getArrayNauczyciel().size();
-		classesCount=classes.size();
-		studentGroupsCount=data.getArrayKlasa().size();
-		Genotype.setClassesNo(classes.size());
+		courses = data.getArrayCourses();
+		teachersCount=data.getArrayTeacher().size();
+		coursesCount=courses.size();
+		studentGroupsCount=data.getArrayStudentGroup().size();
+		Genotype.setClassesNo(courses.size());
 		Genotype.setTimeSlots(availableTimeSlots);
 		//System.out.println(teachersCount+" "+classesCount+"Ilosc slotow: "+availableTimeSlots);
 	}
@@ -190,7 +195,7 @@ public class Timetable {
 				
 				
 				//Slot fitness
-				groupId =classes.get(chromosome.get(i)-1).getKlasa().getId();
+				groupId =courses.get(chromosome.get(i)-1).getStudentGroup().getId();
 				if(classArray[k][groupId]==0 || classArray[k][groupId]==j)
 					classArray[k][groupId]=j+1;	//umieszczamy zeby byly od 1 czyli 8:00 do np 12 czyli 19:00
 				else
@@ -303,7 +308,7 @@ public class Timetable {
 	private boolean checkIfValid(ArrayList<Integer> chromosome)
 	{
 		boolean [][] teacherArray = new boolean[workingDays*workingHours][teachersCount];
-		boolean [][] classesArray = new boolean[workingDays*workingHours][classesCount];
+		boolean [][] classesArray = new boolean[workingDays*workingHours][coursesCount];
 		int i=0, j=0;
 		/*
 		while(i<availableTimeSlots)
@@ -352,8 +357,8 @@ public class Timetable {
 				continue;
 			}
 			
-			int teacherId=classes.get(chromosome.get(i)-1).getNauczyciel().getId();
-			int classId=classes.get(chromosome.get(i)-1).getKlasa().getId();
+			int teacherId=courses.get(chromosome.get(i)-1).getTeacher().getId();
+			int classId=courses.get(chromosome.get(i)-1).getStudentGroup().getId();
 		
 			teacherArray[j][teacherId]++;
 			classesArray[j][classId]++;
@@ -392,8 +397,8 @@ public class Timetable {
 				continue;
 			}
 			
-			int teacherId=classes.get(chromosome.get(i)-1).getNauczyciel().getId();
-			int classId=classes.get(chromosome.get(i)-1).getKlasa().getId();
+			int teacherId=courses.get(chromosome.get(i)-1).getTeacher().getId();
+			int classId=courses.get(chromosome.get(i)-1).getStudentGroup().getId();
 			
 			if(teacherArray[j][teacherId]==true || classesArray[j][classId]==true)
 			{
@@ -429,8 +434,8 @@ public class Timetable {
 			continue;
 		}
 		
-		int teacherId=classes.get(chromosome.get(i)-1).getNauczyciel().getId();
-		int classId=classes.get(chromosome.get(i)-1).getKlasa().getId();
+		int teacherId=courses.get(chromosome.get(i)-1).getTeacher().getId();
+		int classId=courses.get(chromosome.get(i)-1).getStudentGroup().getId();
 	
 		teacherArray[j][teacherId]++;
 		classesArray[j][classId]++;
@@ -464,13 +469,13 @@ public class Timetable {
 	
 }
 
-	static public Classes returnClass(int classNumber)
+	static public Course returnClass(int classNumber)
 	{
-		return classes.get(classNumber-1);
+		return courses.get(classNumber-1);
 	}
 
-	public static ArrayList<Classes> getClasses() {
-		return classes;
+	public static ArrayList<Course> getClasses() {
+		return courses;
 	}
 
 

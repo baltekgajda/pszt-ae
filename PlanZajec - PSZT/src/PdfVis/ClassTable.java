@@ -1,7 +1,7 @@
 package PdfVis;
 
-import klasyPodstawowe.Clas;
-import klasyPodstawowe.Timetable;
+import components.StudentGroup;
+import components.Timetable;
 
 /**
  * Stores entire schedule for one class (group of students)
@@ -11,14 +11,14 @@ import klasyPodstawowe.Timetable;
 public class ClassTable {
 	
 	
-	Clas k;
+	StudentGroup k;
 	Lesson [][] table;//day, hour
 	
 	/**
 	 * Class constructor
 	 * @param k specified group of students
 	 */
-	public ClassTable(Clas k)
+	public ClassTable(StudentGroup k)
 	{
 		this.k=k;
 		table = new Lesson[Timetable.workingDays][Timetable.workingHours];

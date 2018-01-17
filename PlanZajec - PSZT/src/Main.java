@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 import Evolution.Genotype;
 import PdfVis.PdfCreator;
+import components.Timetable;
 import inOut.LoadData;
-import klasyPodstawowe.Timetable;
 
 public class Main {
 
@@ -17,7 +17,7 @@ public class Main {
 	 */
 	
 	
-	static String defaultInFile = "C:\\Users\\bartl\\git\\pszty\\PlanZajec - PSZT\\resources\\dane2.txt";
+	static String defaultInFile = "C:\\Users\\bartl\\git\\pszty\\PlanZajec - PSZT\\src\\dataFiles\\dane4.txt";
 	static String defaultOutFile = "out.pdf";
 	static int defaultPopulation=1000;
 	static int defaultGenerations=1000;
@@ -38,7 +38,7 @@ public class Main {
 		loadData.setFilePath(m.getInFile());
 		loadData.loadData();
 //		Timetable.setWorkingTime(3, 2);
-		Timetable.setAvailableClassrooms(loadData.getSalaAmount());
+		Timetable.setAvailableClassrooms(loadData.getClassroomAmount());
 		Timetable timetable = new Timetable(loadData);
 		Timetable.setPopulationSize(m.getPopulation());
 		Timetable.setGenNumber(m.getGenerations());

@@ -1,12 +1,12 @@
 package PdfVis;
 
 import Evolution.Genotype;
+import components.Course;
+import components.StudentGroup;
+import components.Subject;
+import components.Teacher;
+import components.Timetable;
 import inOut.LoadData;
-import klasyPodstawowe.Clas;
-import klasyPodstawowe.Teacher;
-import klasyPodstawowe.Subject;
-import klasyPodstawowe.Timetable;
-import klasyPodstawowe.Classes;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -58,7 +58,7 @@ public class PdfCreator {
 		for (ClassTable ct:map.values()) //iterate through ClassTables for all student groups
 		{
 			
-			document.add(new Paragraph(ct.k.getNazwa())); //add student group name
+			document.add(new Paragraph(ct.k.getName())); //add student group name
 			
 			table = new Table(Timetable.workingDays+1);
 			
@@ -80,9 +80,9 @@ public class PdfCreator {
 					else //occupied slot
 					{
 						int room = ct.table[j][i].room;
-						Classes z = getZajecie(ct.table[j][i].id);
-						Teacher n = z.getNauczyciel();
-						String text = z.getPrzedmiot().getNazwa() + "\n" + n.getImie().charAt(0) +"." + n.getNazwisko() + "\nsala " + room;
+						Course z = getZajecie(ct.table[j][i].id);
+						Teacher n = z.getTeacher();
+						String text = z.getSubject().getName() + "\n" + n.getFirstName().charAt(0) +"." + n.getLastName() + "\nsala " + room;
 						table.addCell(text);
 					}
 				}
@@ -106,12 +106,12 @@ public class PdfCreator {
 		int days = Timetable.workingDays;
 		int hours = Timetable.workingHours;
 		int rooms = Timetable.availableClassrooms;
-		ArrayList<Clas> classess = data.getArrayKlasa();//list of all classes
+		ArrayList<StudentGroup> classess = data.getArrayStudentGroup();//list of all classes
 		ArrayList<Integer> chrom = gen.getChromosome();
 		
 		HashMap<Integer,ClassTable> tableMap = new HashMap<Integer,ClassTable>();
 		
-		for (Clas k:classess)
+		for (StudentGroup k:classess)
 		{
 			Integer id = k.getId();
 			tableMap.put(id, new ClassTable(k));
@@ -129,11 +129,11 @@ public class PdfCreator {
 			if (id!=0)//if timeslot is not empty
 			{
 								
-				Classes z =getZajecie(id);
+				Course z =getZajecie(id);
 				
 				if (z==null)
 				{
-					for (Classes zaj:data.getArrayZajecia())
+					for (Course zaj:data.getArrayCourses())
 					{
 						if (zaj.getId()==id)
 							z=zaj;
@@ -141,7 +141,7 @@ public class PdfCreator {
 					}
 				}
 				
-				groupId = z.getKlasa().getId();
+				groupId = z.getStudentGroup().getId();
 				tableMap.get(groupId).addClass(id, actDay, actHour, actRoom);//add Lesson to timetable of specific student group
 			}
 					
@@ -170,9 +170,9 @@ public class PdfCreator {
 	 * @param id
 	 * @return
 	 */
-	private Classes getZajecie(int id)
+	private Course getZajecie(int id)
 	{
-		Classes z = data.getArrayZajecia().get(id-1);
+		Course z = data.getArrayCourses().get(id-1);
 		
 /*		if (z==null || z.getId()!=id)
 		{
