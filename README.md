@@ -1,2 +1,1 @@
-# pszt-ae
-PSZT projekt AE 
+# Timetable Algorithm - university version
